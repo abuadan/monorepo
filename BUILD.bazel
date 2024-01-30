@@ -1,0 +1,226 @@
+# Copyright 2017 The Bazel Authors. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test", "buildozer_binary")
+load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_python_gazelle_plugin//:def.bzl", "GAZELLE_PYTHON_RUNTIME_DEPS")
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])
+
+################################################################################
+# exports_files
+################################################################################
+
+exports_files([
+    "LICENSE",
+    "version.bzl",
+])
+
+exports_files(
+    glob(["*.md"]),
+    visibility = ["//docs:__subpackages__"],
+)
+
+filegroup(
+    name = "distribution",
+    srcs = [
+        "BUILD.bazel",
+        "MODULE.bazel",
+        "version.bzl",
+    ],
+    visibility = [
+        "//:__subpackages__",
+    ],
+)
+
+exports_files(
+    [
+        ".clang-tidy",
+        ".ruff.toml",
+        ".scalafmt.conf",
+        ".shellcheckrc",
+        "buf.yaml",
+        "checkstyle.xml",
+        "gazelle_python.yaml",
+        "go.mod",
+        "go.sum",
+        "pmd.xml",
+        "pyproject.toml",
+    ],
+)
+
+bzl_library(
+    name = "version_bzl",
+    srcs = ["version.bzl"],
+    visibility = ["//:__subpackages__"],
+)
+
+# Reexport of all bzl files used to allow downstream rules to generate docs
+# without shipping with a dependency on Skylib
+filegroup(
+    name = "bzl",
+    srcs = [
+        # Requires Bazel 0.29 onward for public visibility of these .bzl files.
+        "@bazel_tools//tools/python:python_version.bzl",
+        "@bazel_tools//tools/python:srcs_version.bzl",
+        "@bazel_tools//tools/python:toolchain.bzl",
+        "@bazel_tools//tools/python:utils.bzl",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+################################################################################
+# Buildifier
+################################################################################
+# Buildifier lints and autoformats bazel (Starlark) files. Run using one or both
+# of these:
+# bazel run //:buildifier.fix
+# bazel run //:buildifier.check
+################################################################################
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+        "**/node_modules/**",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
+)
+
+buildifier(
+    name = "buildifier.fix",
+    exclude_patterns = [
+        "./.git/*",
+        "**/node_modules/**",
+    ],
+    lint_mode = "fix",
+    mode = "fix",
+)
+
+# This test checks that all BUILD files (etc.) are formatted correctly.  Run "bazel run //:buildifier" to auto-fix them.
+buildifier_test(
+    name = "buildifier_test",
+    size = "small",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
+    no_sandbox = True,
+    tags = ["style"],
+    workspace = "//:MODULE.bazel",
+)
+
+# Run the buildozer command.
+buildozer_binary(
+    name = "buildozer",
+)
+
+################################################################################
+# Gazelle
+################################################################################
+# Gazelle configuration options.
+# See https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
+# gazelle:prefix github.com/abuadan/monorepo
+# gazelle:exclude bazel-out
+# gazelle:exclude .venv
+# gazelle:exclude python/.venv
+# gazelle:exclude python/.mypy_cache
+# gazelle:prefix github.com/bazelbuild/bazel-gazelle
+# gazelle:exclude vendor
+# gazelle:exclude third_party
+# gazelle:exclude .bazelci
+# gazelle:exclude .bcr
+# gazelle:exclude .idea
+# gazelle:exclude .ijwb
+# gazelle:exclude .github
+# gazelle:exclude .vscode
+# gazelle:exclude internal/module/testdata
+# gazelle:go_naming_convention import_alias)
+# gazelle:js_npm_package_target_name pkg
+# gazelle:js_package_rule_kind js_library
+# gazelle:js_project_naming_convention tsc
+################################################################################
+
+gazelle(
+    name = "gazelle",
+    data = GAZELLE_PYTHON_RUNTIME_DEPS,
+    gazelle = ":gazelle_binary",
+)
+
+gazelle_binary(
+    name = "gazelle_binary",
+    languages = DEFAULT_LANGUAGES + [
+        "@rules_python_gazelle_plugin//python",
+        "@contrib_rules_jvm//java/gazelle",
+        # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
+    ],
+    visibility = ["//visibility:private"],
+)
+
+################################################################################
+# Gazelle
+#################################################################################
+# Gazelle is an automatic BUILD(.bazel) file generator. Run via:
+# bazel run //:gazelle
+#################################################################################
+
+# Comments that start with "# gazelle:XYZ" are called *directives*. Some directives
+# can and should be set here, in the same bazel package (BUILD file) that defines
+# gazelle, while other directives (such as "# gazelle:python_root") should be
+# defined in a BUILD file specific to that part of the folder tree. See
+# src/BUILD for such an example - it's how we define that the "src" dir should
+# be the root of python files and thus get added to sys.path.
+
+# This directive tells gazelle that our tests are named "test_foo.py" instead
+# of "foo_test.py".
+# gazelle:python_test_naming_convention test_$package_name$
+
+# This directive tells gazelle to make a single bazel target per python file.
+# The default is to make a single bazel target per python _package_).
+# gazelle:python_generation_mode file
+
+# This directive would be used if, for example, we wanted to make pytest_test
+# rules instead of py_test rules. However, this project doesn't use `pytest`
+# so the directive is inactive (double #).
+## gazelle:map_kind py_test pytest_test //python:defs.bzl
+
+# This directive tells gazelle to use import `foobar` using the py_library
+# target, rather than the py_binary target (`foobar.py` is both a library
+# and an executable, so gazelle gets confuzed, saying that multiple targets
+# can satisfy the "mypackage.foobar" import).
+# This directive can be set multiple times.
+## gazelle:resolve py mypackage.foobar //src/mypackage:foobar
+
+################################################################################
+# End Gazelle Directives
+################################################################################
+
+################################################################################
+# Formatting
+################################################################################
+npm_link_all_packages(name = "node_modules")
+
+################################################################################
+# Formatting
+################################################################################
+alias(
+    name = "format",
+    actual = "//tools/format:format",
+    visibility = ["//visibility:public"],
+)

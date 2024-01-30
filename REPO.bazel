@@ -1,0 +1,27 @@
+"""Global repository settings.
+
+See https://bazel.build/rules/lib/globals/repo
+"""
+ignore_directories([
+    "**/dist",
+    "**/node_modules",
+    "**/.pytest_cache",
+    "**/__pycache__",
+    # Nested projects that should be moved into the root workspace:
+    "angular-ngc",
+    "bufbuild",
+    "bzlmod",
+    "check-npm-determinism",
+    "directory_path",
+    "eager-fetch",
+    "go_workspaces",
+    "java-soap",
+    "jest",
+    "nestjs",
+    "node_snapshot_flags",
+    "oci_java_image",
+    "prisma",
+    "rules_nodejs_to_rules_js_migration",
+    "ts_project_transpiler",
+    "vercel_pkg",
+])

@@ -1,0 +1,65 @@
+repos:
+  - repo: local
+    hooks:
+      - id: autoflake
+        name: autoflake
+        stages: [pre-commit]
+        language: system
+        entry: autoflake
+        args:
+          - "--in-place"
+          - "--remove-all-unused-imports"
+          - "--remove-unused-variables"
+          - "--ignore-init-module-imports"
+        types: [python]
+
+      - id: isort
+        name: isort
+        stages: [pre-commit]
+        language: system
+        entry: isort
+        args: ["--profile", "black", "--project", "app", "--filter-files"]
+        types: [python]
+
+      - id: black
+        name: black
+        stages: [pre-commit]
+        language: system
+        entry: black
+        types: [python]
+
+      # - id: prepend-jira
+      #   name: prepend-jira
+      #   stages: [commit-msg]
+      #   language: system
+      #   entry: .git_hook_scripts/prepend_jira_id_to_commit_message.sh
+
+      # - id: ruff
+      #   name: ruff
+      #   entry: ruff
+      #   language: system
+      #   types: [python]
+      #   require_serial: true
+      ########## Dockerfiles ####################
+      - id: hadolint-docker
+        name: Lint Dockerfiles
+        description: Runs hadolint Docker image to lint Dockerfiles
+        language: docker_image
+        types: ["dockerfile"]
+        entry: ghcr.io/hadolint/hadolint hadolint
+      ####### Bazel stuff #########################
+      - id: update-deleted-packages
+        name: Update deleted packages
+        language: system
+        entry: bazel run @rules_bazel_integration_test//tools:update_deleted_packages
+        files: ^((examples|tests)/.*/(MODULE.bazel|WORKSPACE|WORKSPACE.bzlmod|BUILD.bazel)|.bazelrc)$
+        pass_filenames: false
+
+  - repo: https://github.com/keith/pre-commit-buildifier
+    rev: 6.1.0
+    hooks:
+      - id: buildifier
+        args: &args # Keep this argument in sync with .bazelci/presubmit.yaml
+          - --warnings=all
+      - id: buildifier-lint
+        args: *args

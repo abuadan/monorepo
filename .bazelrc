@@ -1,0 +1,54 @@
+###############################################################################
+## Bazel Configuration Flags
+##
+## `.bazelrc` is a Bazel configuration file.
+## https://bazel.build/docs/best-practices#bazelrc-file
+###############################################################################
+
+test --test_output=errors --enable_runfiles
+
+# We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
+common --check_direct_dependencies=off
+
+# Windows requires these for multi-python support:
+build --enable_runfiles
+startup --windows_enable_symlinks
+
+###############################################################################
+# Python
+################################################################################
+common --@rules_python//python/config_settings:bootstrap_impl=script
+
+common --enable_bzlmod
+coverage --java_runtime_version=remotejdk_11
+
+build --symlink_prefix=build/bazel-
+
+test --test_output=errors
+
+# rustfmt aspect
+build:rustfmt --aspects=@rules_rust//rust:defs.bzl%rustfmt_aspect
+build:rustfmt --output_groups=+rustfmt_checks
+
+# clippy aspect
+build:clippy --aspects=@rules_rust//rust:defs.bzl%rust_clippy_aspect
+build:clippy --output_groups=+clippy_checks
+
+build:check --config=rustfmt
+
+# always run clippy
+build --config=clippy
+
+build:ci --keep_going --experimental_scale_timeouts=3 --config=check
+
+
+###############################################################################
+## Custom user flags
+##
+## This should always be the last thing in the `.bazelrc` file to ensure
+## consistent behavior when setting flags in that file as `.bazelrc` files are
+## evaluated top to bottom.
+###############################################################################
+
+try-import %workspace%/user.bazelrc
+common --enable_platform_specific_config

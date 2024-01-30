@@ -1,0 +1,24 @@
+[package]
+name = "sqlinguist"
+version = "0.1.0"
+edition = "2021"
+description = ""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+byteorder = { workspace = true }
+deepsize = { workspace = true }
+digest = { workspace = true }
+generic-array = { workspace = true }
+hex = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+sha2 = { workspace = true }
+tokio = { workspace = true, features = ["io-util"] }
+
+[dev-dependencies]
+serde_test = { workspace = true }
+tempfile = { workspace = true }
+
+[lints]
+workspace = true

@@ -1,0 +1,381 @@
+###############################################################################
+# Bazel now uses Bzlmod by default to manage external dependencies.
+# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
+#
+# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
+###############################################################################
+module(
+    name = "monorepo",
+    version = "0.0.0",
+    compatibility_level = 1,
+)
+
+bazel_dep(name = "bazel_features", version = "1.38.0")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_python", version = "1.7.0")
+bazel_dep(name = "aspect_rules_py", version = "1.6.6")
+bazel_dep(name = "rules_uv", version = "0.88.0")
+bazel_dep(name = "aspect_rules_js", version = "2.8.3")
+bazel_dep(name = "rules_nodejs", version = "6.6.2")
+bazel_dep(name = "aspect_rules_ts", version = "3.7.1")
+bazel_dep(name = "aspect_rules_swc", version = "2.5.0")
+
+# bazel_dep(name = "rules_go", version = "0.59.0", repo_name = "io_bazel_rules_go")
+bazel_dep(name = "rules_go", version = "0.59.0")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_buf", version = "0.5.2")
+bazel_dep(name = "protobuf", version = "33.1")
+bazel_dep(name = "rules_rust", version = "0.67.0")
+bazel_dep(name = "rules_shell", version = "0.6.1")
+bazel_dep(name = "rules_swift", version = "3.4.0")
+bazel_dep(name = "rules_swift_package_manager", version = "1.11.0")
+bazel_dep(name = "rules_oci", version = "2.2.7")
+bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "rules_kotlin", version = "2.2.0")
+bazel_dep(name = "rules_java", version = "9.2.0")
+bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")
+bazel_dep(name = "rules_jvm_external", version = "6.9")
+bazel_dep(name = "rules_pkg", version = "1.1.0")
+bazel_dep(name = "googletest", version = "1.15.2")
+bazel_dep(name = "toolchains_llvm", version = "1.5.0")
+bazel_dep(name = "toolchains_protoc", version = "0.6.0")
+bazel_dep(name = "rules_multitool", version = "1.9.0")
+bazel_dep(name = "aspect_rules_lint", version = "1.10.2")
+bazel_dep(name = "aspect_bazel_lib", version = "2.21.2")
+
+# Gazelle for auto BUILD generation. See
+# https://github.com/bazelbuild/rules_python/blob/main/gazelle/README.md
+# First install ruleset specifc to python, then gazelle itself.
+# bazel_dep(name = "rules_python_gazelle_plugin", version = "1.7.0")  # same version as rules_python
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.7.0-rc4")
+
+# bazel_dep(name = "gazelle", version = "0.47.0", repo_name = "bazel_gazelle")
+bazel_dep(name = "gazelle", version = "0.47.0")
+
+bazel_dep(name = "stardoc", version = "0.8.0", dev_dependency = True, repo_name = "io_bazel_stardoc")
+bazel_dep(name = "rules_bazel_integration_test", version = "0.34.0", dev_dependency = True)
+bazel_dep(
+    name = "buildifier_prebuilt",
+    version = "8.0.0",
+    dev_dependency = True,
+)
+
+bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.8.2")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+################################################################################
+# Fetch tools
+# https://blog.aspect.build/run-tools-installed-by-bazel
+################################################################################
+multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
+multitool.hub(lockfile = "//tools:tools.lock.json")
+use_repo(multitool, "multitool")
+
+################################################################################
+# Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
+################################################################################
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+llvm.toolchain(
+    llvm_versions = {
+        "": "15.0.6",
+        "darwin-aarch64": "15.0.7",
+        "darwin-x86_64": "15.0.7",
+    },
+)
+use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
+
+################################################################################
+# Protobuf and gRPC
+# https://github.com/aspect-build/toolchains_protoc
+################################################################################
+buf = use_extension("@rules_buf//buf:extensions.bzl", "buf")
+buf.toolchains(version = "v1.34.0")  #see https://github.com/bufbuild/buf/releases
+use_repo(buf, "rules_buf_toolchains")
+
+# This Aspect-provided protobuf toolchain removes the need to compile ProtoC from
+# source, speeding up builds where a cached protoc isn't used.
+protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
+protoc.toolchain(
+    google_protobuf = "com_google_protobuf",
+    version = "LATEST",
+)
+use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
+
+register_toolchains("@llvm_toolchain//:all")
+
+register_toolchains("@toolchains_protoc_hub//:all")
+
+register_toolchains("//tools/toolchains:all")
+
+################################################################################
+# rules_go
+################################################################################
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(
+    name = "go_sdk",
+    version = "1.25.5",
+)
+use_repo(go_sdk, "go_sdk")
+
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+use_repo(
+    go_deps,
+    "com_github_gogo_protobuf",
+    "com_github_golang_mock",
+    "com_github_golang_protobuf",
+    "org_golang_google_genproto",
+    "org_golang_google_grpc",
+    "org_golang_google_grpc_cmd_protoc_gen_go_grpc",
+    "org_golang_google_protobuf",
+    "org_golang_x_net",
+    "org_golang_x_tools",
+)
+
+non_module_deps = use_extension("@rules_swift//swift:extensions.bzl", "non_module_deps")
+use_repo(
+    non_module_deps,
+    "build_bazel_rules_swift_index_import_5_8",
+    "build_bazel_rules_swift_local_config",
+    "com_github_apple_swift_log",
+    "com_github_apple_swift_nio",
+    "com_github_apple_swift_nio_extras",
+    "com_github_apple_swift_nio_http2",
+    "com_github_apple_swift_nio_transport_services",
+    "com_github_apple_swift_protobuf",
+    "com_github_grpc_grpc_swift",
+)
+################################################################################
+# rules_proto
+################################################################################
+
+################################################################################
+# rules_python
+################################################################################
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    configure_coverage_tool = True,
+    is_default = True,
+    python_version = "3.13",
+)
+use_repo(python, "pythons_hub")
+
+register_toolchains("@pythons_hub//:all")
+
+# Enable pip
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
+# Configure how we fetch python dependencies via pip
+pip.parse(
+    environment = {
+        "CFLAGS": "${CFLAGS:-}",
+        "LDFLAGS": "${LDFLAGS:-}",
+    },
+    # Use the bazel downloader for pulling pypi packages.
+    # experimental_index_url = "https://pypi.org/simple",
+    # This name is what gets used in other BUILD files with `load()`.
+    hub_name = "pip",
+    python_version = "3.13",
+    requirements_lock = "//python:requirements.lock",
+)
+
+# Same as WORKSPACE install_deps() - actually install the python deps.
+use_repo(pip, "pip")
+
+################################################################################
+# rules_jvm
+################################################################################
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "maven",
+    artifacts = [
+        "org.junit.jupiter:junit-jupiter-api:5.8.2",
+        "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+        "org.junit.platform:junit-platform-launcher:1.8.2",
+        "org.junit.platform:junit-platform-reporting:1.8.2",
+    ],
+    fetch_sources = True,
+    known_contributing_modules = [
+        "bazel_worker_java",
+        "monorepo",
+        "protobuf",
+    ],
+    lock_file = "//:maven_install.json",
+)
+use_repo(maven, "maven")
+
+################################################################################
+# rules_js
+################################################################################
+node = use_extension(
+    "@rules_nodejs//nodejs:extensions.bzl",
+    "node",
+    dev_dependency = True,
+)
+node.toolchain(
+    include_headers = True,
+    node_version = "20.18.0",
+)
+use_repo(node, "nodejs_toolchains")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+# Allows developers to get a local node_modules tree, using
+# bazel run -- @pnpm//:pnpm --dir $PWD install
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    lifecycle_hooks_execution_requirements = {
+        "lmdb": ["no-remote-exec"],  # requires non-hermetic GLIBCXX_3.4.29 which is not found on remote executors but is available on host
+    },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps()
+use_repo(rules_ts_ext, "npm_typescript")
+################################################################################
+# rules_rust
+################################################################################
+
+GAZELLE_RUST_COMMIT = "aef7695c4a9b6c3e32255ed48570e62199f52537"
+
+GAZELLE_RUST_SHA256 = None
+
+http_archive(
+    name = "gazelle_rust",
+    sha256 = GAZELLE_RUST_SHA256,
+    strip_prefix = "gazelle_rust-{}".format(GAZELLE_RUST_COMMIT),
+    url = "https://github.com/Calsign/gazelle_rust/archive/{}.zip".format(GAZELLE_RUST_COMMIT),
+)
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2021",
+    versions = ["1.77.2"],
+)
+use_repo(rust, "rust_toolchains")
+
+register_toolchains("@rust_toolchains//:all")
+
+crate = use_extension(
+    "@rules_rust//crate_universe:extension.bzl",
+    "crate",
+)
+crate.from_cargo(
+    name = "crates",
+    cargo_lockfile = "//rust:Cargo.lock",
+    manifests = [
+        "//rust:Cargo.toml",
+        "//rust:sqlinguist/Cargo.toml",
+    ],
+)
+use_repo(crate, "crates")
+
+# # Example of using crate_universe. For gazelle_rust to work correctly with crate_universe
+# # dependencies, this must be paired with two gazelle directives; see BUILD.bazel.
+crates_repository = use_repo_rule("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+
+crates_repository(
+    name = "crate_index",
+    cargo_lockfile = "//:rust/Cargo.lock",
+    lockfile = "//:rust/Cargo.Bazel.lock",
+    manifests = [
+        "//:rust/Cargo.toml",
+        "//:rust/sqlinguist/Cargo.toml",
+    ],
+    #  packages = {
+    #     "clap": crate.spec(
+    #         features = ["derive"],
+    #         version = "3.2",
+    #     ),
+    # },
+)
+
+# crate_universe_dependencies = use_extension("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
+# crate_universe_dependencies()
+# crate_repositories = use_repo_rule("@gazelle_rust//3rdparty/crates:crates.bzl", "crate_repositories")
+
+# crate_repositories()
+
+# crate_repositories = use_extension("@rules_rust//crate_universe:defs.bzl", "crate_repositories")
+# use_repo(crate_repositories, "crates_vendor__clap-4.4.18")
+################################################################################
+# rules_kotlin
+################################################################################
+
+############ ===== DEV ONLY DEPS AND SETUP BELOW HERE ===== #######################################
+
+bazel_binaries = use_extension(
+    "@rules_bazel_integration_test//:extensions.bzl",
+    "bazel_binaries",
+    dev_dependency = True,
+)
+
+dev_pip = use_extension(
+    "@rules_python//python/extensions:pip.bzl",
+    "pip",
+    dev_dependency = True,
+)
+dev_pip.parse(
+    experimental_requirement_cycles = {
+        "sphinx": [
+            "sphinx",
+            "sphinxcontrib-serializinghtml",
+            "sphinxcontrib-qthelp",
+            "sphinxcontrib-htmlhelp",
+            "sphinxcontrib-devhelp",
+            "sphinxcontrib-applehelp",
+        ],
+    },
+    hub_name = "dev_pip",
+    python_version = "3.13",
+    requirements_lock = "//:python/requirements.txt",
+)
+use_repo(dev_pip, "dev_pip")
+
+################################################################################
+# Swift
+################################################################################
+swift_deps = use_extension(
+    "@rules_swift_package_manager//:extensions.bzl",
+    "swift_deps",
+)
+swift_deps.from_file(
+    deps_index = "//:swift_deps_index.json",
+)
+use_repo(
+    swift_deps,
+    "swiftpkg_swifterswift",
+)
+
+################################################################################
+# Utilities
+################################################################################
+# Keep in sync with //:version.bzl
+bazel_binaries.local(
+    name = "self",
+    path = "tests/integration/bazel_from_env",
+)
+bazel_binaries.download(version = "latests")
+bazel_binaries.download(version = "rolling")
+use_repo(
+    bazel_binaries,
+    "bazel_binaries",
+    # These don't appear necessary, but are reported as direct dependencies
+    # that should be use_repo()'d, so we add them as requested
+    "bazel_binaries_bazelisk",
+    "build_bazel_bazel_latests",
+    "build_bazel_bazel_rolling",
+    "build_bazel_bazel_self",
+)

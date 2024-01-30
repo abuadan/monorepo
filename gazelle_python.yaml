@@ -1,0 +1,58 @@
+# GENERATED FILE - DO NOT EDIT!
+#
+# To update this file, run:
+#   bazel run //python:gazelle_python_manifest.update
+
+---
+manifest:
+  modules_mapping:
+    4c842c94c09923bae9e4__mypyc: mypy
+    PIL: pillow
+    certifi: certifi
+    cffi: cffi
+    charset_normalizer: charset_normalizer
+    contourpy: contourpy
+    coverage: coverage
+    cycler: cycler
+    dateutil: python_dateutil
+    fontTools: fonttools
+    google.protobuf: protobuf
+    idna: idna
+    iniconfig: iniconfig
+    isympy: sympy
+    kiwisolver: kiwisolver
+    librt.internal: librt
+    lxml: lxml
+    matplotlib: matplotlib
+    mpl_toolkits.axes_grid1: matplotlib
+    mpl_toolkits.axisartist: matplotlib
+    mpl_toolkits.mplot3d: matplotlib
+    mpmath: mpmath
+    mypy: mypy
+    mypy_extensions: mypy_extensions
+    mypyc: mypy
+    networkx: networkx
+    numpy: numpy
+    packaging: packaging
+    pandas: pandas
+    pathspec: pathspec
+    pluggy: pluggy
+    py: pytest
+    pycparser: pycparser
+    pydot: pydot
+    pygments: pygments
+    pygraphviz: pygraphviz
+    pylab: matplotlib
+    pyparsing: pyparsing
+    pytest: pytest
+    pytz: pytz
+    requests: requests
+    scipy: scipy
+    six: six
+    sympy: sympy
+    typing_extensions: typing_extensions
+    tzdata: tzdata
+    urllib3: urllib3
+  pip_repository:
+    name: pip
+integrity: 12d17005aff124d4cf3582a06d33c9055d0be480d2cdb26e246e0ff88d419560
