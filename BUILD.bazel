@@ -13,6 +13,7 @@
 # limitations under the License.
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle" ,"gazelle_binary")
 load(":version.bzl", "BAZEL_VERSION")
 
 package(default_visibility = ["//visibility:public"])
@@ -89,6 +90,22 @@ EOF
         expected = BAZEL_VERSION,
     ),
     executable = True,
+)
+
+gazelle(
+    name = "gazelle",
+    gazelle = ":gazelle_bin",
+)
+
+gazelle_binary(
+    name = "gazelle_bin",
+     languages = DEFAULT_LANGUAGES + [
+       "@rules_python_gazelle_plugin//python:python",
+        # "@rules_python_gazelle_plugin",
+        # "@gazelle_rust//rust_language",
+
+    ],
+    visibility = ["//visibility:public"],
 )
 
 sh_test(
