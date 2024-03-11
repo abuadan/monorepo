@@ -1,0 +1,14 @@
+pydantic
+pydantic-core
+pydantic-settings
+pytest
+pytest-asyncio
+pytest-watch
+hypothesis
+requests
+black
+isort
+pre-commit
+mypy
+ruff
+click

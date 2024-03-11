@@ -102,7 +102,7 @@ gazelle_binary(
      languages = DEFAULT_LANGUAGES + [
        "@rules_python_gazelle_plugin//python:python",
         # "@rules_python_gazelle_plugin",
-        # "@gazelle_rust//rust_language",
+        # "@gazelle_rust//rust_language:rust_language", # Couldn't get this to work required additional overrides wait for package to update to bzlmod
 
     ],
     visibility = ["//visibility:public"],
@@ -111,4 +111,15 @@ gazelle_binary(
 sh_test(
     name = "assert_bazelversion_test",
     srcs = [":assert_bazelversion_test.sh"],
+)
+
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
 )

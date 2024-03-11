@@ -1,0 +1,25 @@
+---
+site_name: Fast API app
+
+theme:
+  name: "material"
+  features:
+    - navigation.instant
+  palette:
+    primary: teal
+    accent: deep purple
+
+nav:
+  - Home: index.md
+  - Development: development.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets

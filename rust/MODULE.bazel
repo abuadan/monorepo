@@ -1,3 +1,4 @@
+workspace(name = "monorepo")
 
 crates_repository = use_extension("@rules_rust//crate_universe:defs.bzl", "crates_repository")
 
@@ -14,6 +15,10 @@ crates_repository(
         ),
     },
 )
+
+load("@crate_index//:defs.bzl", "crate_repositories")
+
+crate_repositories()
 
 load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
 

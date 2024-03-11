@@ -1,39 +1,14 @@
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# Load gazelle_rust. In a real project, this would use http_archive. Must come before rules_rust so
-# that the patch can be applied.
+# Tell gazelle_rust where crate_universe dependencies come from:
 
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+# gazelle:rust_lockfile cargo.bazel.lock
+# gazelle:rust_crates_prefix @crates//:
 
-# rules_rust_dependencies()
-
-# load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
-
-# Example of using crate_universe. For gazelle_rust to work correctly with crate_universe
-# dependencies, this must be paired with two gazelle directives; see BUILD.bazel.
-# crates_repository(
-#     name = "crates",
-#     cargo_lockfile = "//rust:cargo.lock",
-#     lockfile = "//rust:cargo.bazel.lock",
-#     packages = {
-#         "clap": crate.spec(
-#             features = ["derive"],
-#             version = "3.2",
-#         ),
-#     },
-# )
-
-# load("@crates//:defs.bzl", "crate_repositories")
-#
-# crate_repositories()
-
-# # Load gazelle_rust transitive dependencies (includes gazelle). You can also load gazelle yourself,
-# # before these macros.
-#
-# load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
-#
-# gazelle_rust_dependencies1()
-#
-# load("@gazelle_rust//:deps2.bzl", "gazelle_rust_dependencies2")
-#
-# gazelle_rust_dependencies2()
+# Gazelle target using the gazelle_rust-provided gazelle binary. You can also create your own
+# gazelle_binary target and add @gazelle_rust//rust_language to languages.
+# Run with: bazel run //:gazelle
+gazelle(
+    name = "gazelle",
+    gazelle = "@gazelle_rust//:gazelle_bin",
+)
