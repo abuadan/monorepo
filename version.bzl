@@ -1,3 +1,6 @@
+"""
+Version Information
+"""
 # Copyright 2019 The Bazel Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +14,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Versions of rules_python dependencies."""
 
 # Currently used Bazel version. This version is what the rules here are tested
 # against.

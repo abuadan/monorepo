@@ -1,3 +1,8 @@
+load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test", "buildozer_binary")
+load(":version.bzl", "BAZEL_VERSION")
+
 # Copyright 2017 The Bazel Authors. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,13 +16,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle" ,"gazelle_binary")
-load(":version.bzl", "BAZEL_VERSION")
-
 package(default_visibility = ["//visibility:public"])
 
+# load("@gazelle//:def.bzl", "gazelle")
+# load("@rules_go//go:def.bzl", "go_library", "nogo")
 licenses(["notice"])
 
 exports_files([
@@ -99,11 +101,10 @@ gazelle(
 
 gazelle_binary(
     name = "gazelle_bin",
-     languages = DEFAULT_LANGUAGES + [
-       "@rules_python_gazelle_plugin//python:python",
+    languages = DEFAULT_LANGUAGES + [
+        "@rules_python_gazelle_plugin//python:python",
         # "@rules_python_gazelle_plugin",
-        # "@gazelle_rust//rust_language:rust_language", # Couldn't get this to work required additional overrides wait for package to update to bzlmod
-
+        # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
     ],
     visibility = ["//visibility:public"],
 )
@@ -113,13 +114,31 @@ sh_test(
     srcs = [":assert_bazelversion_test.sh"],
 )
 
-load("@buildifier_prebuilt//:rules.bzl", "buildifier")
-
+# Buildifier formats all BUILD files in the workspace.
 buildifier(
-    name = "buildifier.check",
+    name = "buildifier",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "fix",
+    mode = "fix",
+)
+
+# This test checks that all BUILD files (etc.) are formatted correctly.  Run "bazel run //:buildifier" to auto-fix them.
+buildifier_test(
+    name = "buildifier_test",
+    size = "small",
     exclude_patterns = [
         "./.git/*",
     ],
     lint_mode = "warn",
     mode = "diff",
+    no_sandbox = True,
+    tags = ["style"],
+    workspace = "//:MODULE.bazel",
+)
+
+# Run the buildozer command.
+buildozer_binary(
+    name = "buildozer",
 )

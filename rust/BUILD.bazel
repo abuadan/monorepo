@@ -1,4 +1,48 @@
-load("@bazel_gazelle//:def.bzl", "gazelle")
+# load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+# load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
+# crates_repository = use_extension("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+# crate = use_extension("@rules_rust//crate_universe:defs.bzl", "crate")
+
+# crates_repository(
+#     name = "crate_index",
+#     cargo_lockfile = "//:rust/Cargo.lock",
+#     lockfile = "//rust/:Cargo.Bazel.lock",
+#     manifests = ["//rust/:Cargo.toml"],
+# )
+
+# load("@crates//:defs.bzl", "crate_repositories")
+#
+# crate_repositories()
+
+# crates_repository = use_extension("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+# crate = use_extension("@rules_rust//crate_universe:defs.bzl", "crate")
+# Example of using crate_universe. For gazelle_rust to work correctly with crate_universe
+# dependencies, this must be paired with two gazelle directives; see BUILD.bazel.
+# crates_repository(
+#     name = "crates",
+#     cargo_lockfile = "cargo.lock",
+#     lockfile = "cargo.bazel.lock",
+#     packages = {
+#         "clap": crate.spec(
+#             features = ["derive"],
+#             version = "3.2",
+#         ),
+#     },
+# )
+
+# load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+
+# rust_analyzer_dependencies()
+
+# load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
+#
+# gazelle_rust_dependencies1()
+
+# load("@gazelle_rust//:deps2.bzl", "gazelle_rust_dependencies2")
+
+# gazelle_rust_dependencies2()
 
 # Tell gazelle_rust where crate_universe dependencies come from:
 
@@ -8,7 +52,7 @@ load("@bazel_gazelle//:def.bzl", "gazelle")
 # Gazelle target using the gazelle_rust-provided gazelle binary. You can also create your own
 # gazelle_binary target and add @gazelle_rust//rust_language to languages.
 # Run with: bazel run //:gazelle
-gazelle(
-    name = "gazelle",
-    gazelle = "@gazelle_rust//:gazelle_bin",
-)
+# gazelle(
+#     name = "gazelle",
+#     gazelle = "@gazelle_rust//:gazelle_bin",
+# )

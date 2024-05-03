@@ -1,30 +1,116 @@
-workspace(name = "monorepo")
+module(
+    name = "rust",
+    version = "0.0.0",
+)
 
-crates_repository = use_extension("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+###################### RUST #############################################
+# GAZELLE_RUST_COMMIT = "00e88bceaa1a1c35d9c3019f65f3e20459fafe33"
+#
+# GAZELLE_RUST_SHA256 = None
+#
+# http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+#
+# http_archive(
+#     name = "gazelle_rust",
+#     sha256 = GAZELLE_RUST_SHA256,
+#     strip_prefix = "gazelle_rust-{}".format(GAZELLE_RUST_COMMIT),
+#     url = "https://github.com/Calsign/gazelle_rust/archive/{}.zip".format(GAZELLE_RUST_COMMIT),
+# )
+#
+# bazel_dep(name = "rules_rust", version = "0.42.1")
+#
+# rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+# rust.toolchain(
+#     edition = "2021",
+#     versions = ["1.77.2"],
+# )
+# use_repo(rust, "rust_toolchains")
+#
+# register_toolchains("@rust_toolchains//:all")
+
+# crates_repository = use_extension("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+# crate = use_extension("@rules_rust//crate_universe:defs.bzl", "crate")
+# # Example of using crate_universe. For gazelle_rust to work correctly with crate_universe
+# # dependencies, this must be paired with two gazelle directives; see BUILD.bazel.
+# crates_repository(
+#     name = "crates",
+#     cargo_lockfile = "cargo.lock",
+#     lockfile = "cargo.bazel.lock",
+#     packages = {
+#         "clap": crate.spec(
+#             features = ["derive"],
+#             version = "3.2",
+#         ),
+#     },
+# )
+#
+# load("@crate_index//:defs.bzl", "crate_repositories")
+#
+# crate_repositories()
+#
+# load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
+#
+# gazelle_rust_dependencies1()
+#
+# load("@gazelle_rust//:deps2.bzl", "gazelle_rust_dependencies2")
+#
+# gazelle_rust_dependencies2()
+# load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# http_archive(
+#     name = "rules_rust",
+#     sha256 = "c30dfdf1e86fd50650a76ea645b3a45f2f00667b06187a685e9554e167ca97ee",
+#     urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.40.0/rules_rust-v0.40.0.tar.gz"],
+# )
+
+# load("@@gazelle_rust")
+# load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+#
+# rules_rust_dependencies()
+#
+# rust_register_toolchains(
+#     edition = "2021",
+#     versions = ["1.75.0"],
+# )
+
+# load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
 
 # Example of using crate_universe. For gazelle_rust to work correctly with crate_universe
 # dependencies, this must be paired with two gazelle directives; see BUILD.bazel.
-crates_repository(
-    name = "crates",
-    cargo_lockfile = "cargo.lock",
-    lockfile = "cargo.bazel.lock",
-    packages = {
-        "clap": crate.spec(
-            features = ["derive"],
-            version = "3.2",
-        ),
-    },
-)
+# crates_repository(
+#     name = "crates",
+#     cargo_lockfile = "//:rust/cargo.lock",
+#     lockfile = "//:rust/cargo.bazel.lock",
+#     packages = {
+#         "clap": crate.spec(
+#             features = ["derive"],
+#             version = "3.2",
+#         ),
+#     },
+# )
 
-load("@crate_index//:defs.bzl", "crate_repositories")
+# load("@crates//:defs.bzl", "crate_repositories")
 
-crate_repositories()
+# crate_repositories()
 
-load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
+# Load gazelle_rust. In a real project, this would use http_archive.
 
-gazelle_rust_dependencies1()
+# local_repository(
+#     name = "gazelle_rust",
+#     path = "..",
+# )
 
-load("@gazelle_rust//:deps2.bzl", "gazelle_rust_dependencies2")
+# Load gazelle_rust transitive dependencies (includes gazelle). You can also load gazelle yourself,
+# before these macros.
 
-gazelle_rust_dependencies2()
+# load("@gazelle_rust//:deps1.bzl", "gazelle_rust_dependencies1")
+#
+# gazelle_rust_dependencies1()
+#
+# load("@gazelle_rust//:deps2.bzl", "gazelle_rust_dependencies2")
+#
+# gazelle_rust_dependencies2()
+#
+rust_analyzer_dependencies_ = use_extension("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
 
+rust_analyzer_dependencies_()
