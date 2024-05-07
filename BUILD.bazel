@@ -1,4 +1,4 @@
-load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test", "buildozer_binary")
 load(":version.bzl", "BAZEL_VERSION")
@@ -18,8 +18,7 @@ load(":version.bzl", "BAZEL_VERSION")
 # limitations under the License.
 package(default_visibility = ["//visibility:public"])
 
-
-# gazelle:python_root python/src
+# gazelle:python_root
 #
 # load("@gazelle//:def.bzl", "gazelle")
 # load("@rules_go//go:def.bzl", "go_library", "nogo")
@@ -94,7 +93,6 @@ gazelle(
     args = ["-build_file_name=BUILD.bazel"],
     gazelle = ":gazelle_bin",
     visibility = ["//visibility:private"],
-
 )
 
 gazelle_binary(
@@ -106,7 +104,6 @@ gazelle_binary(
         # Any languages that depend on Gazelle's proto plugin must come after it.
         # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
     ],
-    # visibility = ["//visibility:public"],
     visibility = ["//visibility:private"],
 )
 

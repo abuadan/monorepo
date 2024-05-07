@@ -1,12 +1,5 @@
-# Load various rules so that we can have bazel download
-# various rulesets and dependencies.
-# The `load` statement imports the symbol for the rule, in the defined
-# ruleset. When the symbol is loaded you can use the rule.
-load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@pip//:requirements.bzl", "all_whl_requirements")
 load("@rules_poetry//python:poetry.bzl", "poetry_update")
-
-# load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
@@ -18,7 +11,6 @@ load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 # This directive tells gazelle to make a single bazel target per python file.
 # The default is to make a single bazel target per python _package_).
 # gazelle:python_generation_mode file
-
 
 filegroup(
     name = "src_dir",
@@ -107,9 +99,9 @@ gazelle_python_manifest(
 # - bazel run //:gazelle update
 # - bazel run //:gazelle fix
 # See: https://github.com/bazelbuild/bazel-gazelle#fix-and-update
-gazelle(
-    name = "gazelle_python",
-    gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
-    # gazelle = "//:my_gazelle_binary",
-
-)
+# gazelle(
+#     name = "gazelle_python",
+#     gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
+#     # gazelle = "//:my_gazelle_binary",
+#
+# )
