@@ -3,7 +3,7 @@ name = "monorepo"
 version = "0.1.0"
 description = ""
 authors = ["Abu Adan <abuadan@gmail.com>"]
-packages = [{ include = "data_warehouse" }, { include = "dataplatform" }]
+packages = [{ include = "dataplatform" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4"
@@ -40,7 +40,7 @@ yamllint = "^1.34.0"
 docformatter = "^1.7.5"
 ipython = "^8.21.0"
 bandit = "^1.7.7"
-pyright = "^1.1.350"
+pyright = "^1.1.361"
 dockerfile = "^3.3.1"
 pants = "^1.0.1"
 

@@ -11,6 +11,20 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
+# This directive tells gazelle that our tests are named "test_foo.py" instead
+# of "foo_test.py".
+# gazelle:python_test_naming_convention test_$package_name$
+
+# This directive tells gazelle to make a single bazel target per python file.
+# The default is to make a single bazel target per python _package_).
+# gazelle:python_generation_mode file
+
+
+filegroup(
+    name = "src_dir",
+    srcs = ["src"],
+)
+
 poetry_update(
     name = "update_lock",
     lock = "//python:poetry.lock",
@@ -22,7 +36,8 @@ poetry_update(
 compile_pip_requirements(
     name = "requirements",
     src = "requirements.in",
-    requirements_txt = "requirements_lock.txt",
+    data = [":src_dir"],
+    requirements_txt = "requirements.lock",
     # requirements_windows = "requirements_windows.txt",
 )
 
@@ -52,13 +67,36 @@ modules_mapping(
 # This target updates a file called gazelle_python.yaml, and
 # requires that file exist before the target is run.
 # When you are using gazelle you need to run this target first.
+# gazelle_python_manifest(
+#     name = "gazelle_python_manifest",
+#     modules_mapping = ":modules_map",
+#     pip_repository_name = "pip",
+#     tags = ["exclusive"],
+# )
+# Gazelle python extension needs a manifest file mapping from
+# an import to the installed package that provides it. This target updates the
+# "gazelle_python.yaml" file when run. The file must already exist.
+# This target produces two targets:
+# bazel run //:gazelle_python_manifest.update
+# bazel run //:gazelle_python_manifest.test
 gazelle_python_manifest(
+    # Name this target. This will be how you run with `bazel run //:<name>.update`
     name = "gazelle_python_manifest",
+    # Same as `modules_mapping.name` (with ":"), above.
     modules_mapping = ":modules_map",
+    # This is what we called our `pip_parse` rule, where third-party
+    # python libraries are loaded in BUILD files.
     pip_repository_name = "pip",
-    tags = ["exclusive"],
+    # This should point to wherever we declare our python dependencies.
+    # It's the same as what we passed to the pip.parse rule in MODULE.bazel and
+    # is the same filename that we used in the `requirements_txt` attribute of
+    # `compile_pip_requirements`, above.)
+    # This argument is optional. If provided, the `.test` target is very
+    # fast because it just has to check an integrity field. If not provided,
+    # the integrity field is not added to the manifest which can help avoid
+    # merge conflicts in large repos.
+    requirements = "//python:requirements.lock",
 )
-
 # Our gazelle target points to the python gazelle binary.
 # This is the simple case where we only need one language supported.
 # If you also had proto, go, or other gazelle-supported languages,
@@ -72,4 +110,6 @@ gazelle_python_manifest(
 gazelle(
     name = "gazelle_python",
     gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
+    # gazelle = "//:my_gazelle_binary",
+
 )

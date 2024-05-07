@@ -7,3 +7,19 @@ module(
     name = "python",
     version = "0.0.0",
 )
+
+bazel_dep(name = "rules_python", version = "0.0.0")
+
+# Then install gazelle itself.
+bazel_dep(name = "gazelle", version = "0.0.0", repo_name = "bazel_gazelle")
+
+
+
+poetry = use_extension("@rules_poetry//python:extensions.bzl", "poetry")
+poetry.parse(
+    name = "poetry",
+    lock = "//python:poetry.lock",
+    pyproject = "//python:pyproject.toml",
+)
+use_repo(poetry, "poetry")
+

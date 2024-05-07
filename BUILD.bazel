@@ -18,6 +18,9 @@ load(":version.bzl", "BAZEL_VERSION")
 # limitations under the License.
 package(default_visibility = ["//visibility:public"])
 
+
+# gazelle:python_root python/src
+#
 # load("@gazelle//:def.bzl", "gazelle")
 # load("@rules_go//go:def.bzl", "go_library", "nogo")
 licenses(["notice"])
@@ -38,13 +41,7 @@ filegroup(
         "BUILD.bazel",
         "MODULE.bazel",
         "WORKSPACE",
-        # "internal_deps.bzl",
-        # "internal_setup.bzl",
         "version.bzl",
-        # "@rules_python//python:distribution",
-        # "@rules_python//python/pip_install:distribution",
-        # "@rules_python//tools:distribution",
-        # "@rules_python_gazelle_plugin//:distribution",
     ],
     visibility = [
         "//:__subpackages__",
@@ -62,8 +59,6 @@ bzl_library(
 filegroup(
     name = "bzl",
     srcs = [
-        # "//python/pip_install:bzl",
-        # "//python:bzl",
         # Requires Bazel 0.29 onward for public visibility of these .bzl files.
         "@bazel_tools//tools/python:python_version.bzl",
         "@bazel_tools//tools/python:srcs_version.bzl",
@@ -96,17 +91,23 @@ EOF
 
 gazelle(
     name = "gazelle",
+    args = ["-build_file_name=BUILD.bazel"],
     gazelle = ":gazelle_bin",
+    visibility = ["//visibility:private"],
+
 )
 
 gazelle_binary(
     name = "gazelle_bin",
-    languages = DEFAULT_LANGUAGES + [
+    languages = [
         "@rules_python_gazelle_plugin//python:python",
-        # "@rules_python_gazelle_plugin",
+        "@bazel_gazelle//language/go",  # Built-in rule from gazelle for Golang.
+        "@bazel_gazelle//language/proto",  # Built-in rule from gazelle for Protos.
+        # Any languages that depend on Gazelle's proto plugin must come after it.
         # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
     ],
-    visibility = ["//visibility:public"],
+    # visibility = ["//visibility:public"],
+    visibility = ["//visibility:private"],
 )
 
 sh_test(
