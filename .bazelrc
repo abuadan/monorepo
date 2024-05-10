@@ -1,3 +1,10 @@
+###############################################################################
+## Bazel Configuration Flags
+##
+## `.bazelrc` is a Bazel configuration file.
+## https://bazel.build/docs/best-practices#bazelrc-file
+###############################################################################
+
 test --test_output=errors --enable_runfiles
 
 # Windows requires these for multi-python support:
@@ -27,3 +34,13 @@ build --config=clippy
 
 build:ci --keep_going --experimental_scale_timeouts=3 --config=check
 
+
+###############################################################################
+## Custom user flags
+##
+## This should always be the last thing in the `.bazelrc` file to ensure
+## consistent behavior when setting flags in that file as `.bazelrc` files are
+## evaluated top to bottom.
+###############################################################################
+
+try-import %workspace%/user.bazelrc

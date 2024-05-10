@@ -99,6 +99,7 @@ gazelle_binary(
     name = "gazelle_bin",
     languages = [
         "@rules_python_gazelle_plugin//python:python",
+        # "@rules_python//gazelle",  # Use gazelle from rules_python.
         "@bazel_gazelle//language/go",  # Built-in rule from gazelle for Golang.
         "@bazel_gazelle//language/proto",  # Built-in rule from gazelle for Protos.
         # Any languages that depend on Gazelle's proto plugin must come after it.
@@ -112,9 +113,26 @@ sh_test(
     srcs = [":assert_bazelversion_test.sh"],
 )
 
-# Buildifier formats all BUILD files in the workspace.
+######
+# Builifier
+#
+# Buildifier lints and autoformats bazel (Starlark) files. Run using one or both
+# of these:
+# bazel run //:buildifier.fix
+# bazel run //:buildifier.check
+######
+
 buildifier(
-    name = "buildifier",
+    name = "buildifier.check",
+    exclude_patterns = [
+        "./.git/*",
+    ],
+    lint_mode = "warn",
+    mode = "diff",
+)
+
+buildifier(
+    name = "buildifier.fix",
     exclude_patterns = [
         "./.git/*",
     ],
