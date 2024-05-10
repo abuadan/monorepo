@@ -936,3 +936,4 @@ manifest:
     yaml.tokens: PyYAML
   pip_repository:
     name: pip
+integrity: 3c5e2ebb65b31f6f01824c1abe2773f8468ecf9d1006cdcec5e8571457629efc

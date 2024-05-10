@@ -14,7 +14,7 @@ load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
 filegroup(
     name = "src_dir",
-    srcs = ["src"],
+    srcs = ["//python:src"],
 )
 
 poetry_update(

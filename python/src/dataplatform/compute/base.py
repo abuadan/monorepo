@@ -1,50 +1,57 @@
 """
 Compute Protocol.
 """
+
 from abc import ABC, abstractmethod, abstractproperty
 from typing import (
+    Callable,
     Generic,
     Mapping,
     Optional,
     Protocol,
     TypeVar,
-    runtime_checkable,
-    Callable,
     overload,
+    runtime_checkable,
 )
-from src.dataplatform.compute.schema import SchemaProtocol
-from src.dataplatform.storage.protocol import SupportsStorage
 
+from dataplatform.compute.schema import SchemaProtocol
+from dataplatform.storage.protocol import SupportsStorage
 
-T = TypeVar("T")
+Compute_T = TypeVar("Compute_T")
 U = TypeVar("U")
 NameKey = TypeVar("NameKey", bound=str)
 
 
 @runtime_checkable
-class ComputeProtocol(Protocol):
+class ComputeProtocol(Protocol, Generic[Compute_T]):
     name: str
     sink: SupportsStorage
     dependencies: Mapping[str, "ComputeProtocol"]
     schema: SchemaProtocol
-    compute_type: str
+    _compute_type: str
+    _config: Optional[Compute_T]
 
-    def execute(self, function: Callable[..., T]) -> T:
-        ...
+    def execute(self, function: Callable[..., Compute_T]) -> Compute_T: ...
+
+    def adjacency_matrix(self) -> list[tuple[str, str]]: ...
+
+    @property
+    def compute_type(self):
+        return self._compute_type
 
 
-class BaseCompute(ABC, Generic[T, U]):
+class BaseCompute(ABC, Generic[Compute_T, U]):
     def __init__(
         self,
         name: str,
         sink: SupportsStorage,
-        dependencies: Mapping[NameKey, ComputeProtocol],
+        dependencies: Mapping[str, ComputeProtocol],
         schema: SchemaProtocol,
         compute_type: str,
-        config: Optional[T] = None,
+        config: Optional[Compute_T] = None,
     ) -> None:
         self.name = name
-        self.dependcies = dependencies
+        self.dependencies = dependencies
         self.sink = sink
         self.schema = schema
         self._config = config
@@ -54,23 +61,29 @@ class BaseCompute(ABC, Generic[T, U]):
     def input_data(self):
         raise NotImplementedError
 
-    def load(self):
-        ...
+    def load(self): ...
 
     @overload
     @abstractmethod
-    def execute(self, function: None) -> U:
-        ...
+    def execute(self, function: None) -> U: ...
 
     @overload
     @abstractmethod
-    def execute(self, function: Callable[..., U]) -> U:
-        ...
+    def execute(self, function: Callable[..., U]) -> U: ...
 
     @abstractmethod
-    def execute(self, function) -> U:
-        ...
+    def execute(self, function) -> U: ...
+
+    def adjacency_matrix(self) -> list[tuple[str, str]]:
+        adjency = []
+        for _, dependency in self.dependencies.items():
+            adjency.append((dependency.name, self.name))
+        return adjency
 
     @property
     def config(self):
         return self._config
+
+    @property
+    def compute_type(self):
+        return self._compute_type

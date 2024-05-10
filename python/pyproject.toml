@@ -3,7 +3,7 @@ name = "monorepo"
 version = "0.1.0"
 description = ""
 authors = ["Abu Adan <abuadan@gmail.com>"]
-packages = [{ include = "dataplatform" }]
+packages = [{ include = "dataplatform", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4"
@@ -27,6 +27,7 @@ pyarrow = "^15.0.0"
 numpy = "^1.26.4"
 more-itertools = "^10.2.0"
 django = "^5.0.3"
+networkx = { version = "^3.3", extras = ["default"] }
 
 [tool.poetry.group.dev.dependencies]
 requests = "2.31.0"
@@ -43,6 +44,8 @@ bandit = "^1.7.7"
 pyright = "^1.1.361"
 dockerfile = "^3.3.1"
 pants = "^1.0.1"
+matplotlib = "^3.8.4"
+autoflake = "^2.3.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "7.4.4"
@@ -107,11 +110,12 @@ exclude = ["**/node_modules", "**/__pycache__", "**/.venv"]
 
 reportUnusedImport = false
 reportUnusedVariable = false
-pythonVersion = "3.11"
+pythonVersion = "3.12"
 
 [tool.pytest.ini_options]
 minversion = "7.1"
 addopts = "-ra -q"
+pythonpath = ["src"]
 
 [build-system]
 requires = ["poetry>=1.8.2"]

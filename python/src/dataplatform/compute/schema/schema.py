@@ -8,7 +8,6 @@ from typing import (
     runtime_checkable,
 )
 
-
 from pydantic.fields import FieldInfo
 
 
@@ -34,9 +33,9 @@ class PydanticDataclassProtocol(StandardDataclassProtocol, Protocol):
 
 
 SchemaDataClass = StandardDataclassProtocol | PydanticDataclassProtocol
-_SchemaProtocol = TypeVar("_SchemaProtocol", bound=SchemaDataClass)
+_SchemaProtocol = TypeVar("_SchemaProtocol", bound=SchemaDataClass, covariant=True)
 
 
 @runtime_checkable
-class SchemaProtocol(Generic[_SchemaProtocol]):
+class SchemaProtocol(Protocol, Generic[_SchemaProtocol]):
     pass
