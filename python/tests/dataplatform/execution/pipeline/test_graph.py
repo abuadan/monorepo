@@ -75,5 +75,4 @@ def test_graph_generation(long_compute_chain):
         metadata={},
     )
 
-    breakpoint()
-    assert graph.graph is None
+    assert graph.graph.edges() is None

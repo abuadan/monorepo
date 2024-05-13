@@ -23,14 +23,8 @@ bazel_dep(name = "rules_bazel_integration_test", version = "0.23.0", dev_depende
 
 # Use a pre-release version of rules_python so that we can access new directives.
 # Once 0.32.0 is released we can remove this line.
-bazel_dep(name = "rules_python", version = "0.31.0")
-git_override(
-    module_name = "rules_python",
-    commit = "cdc7f2f43186899b970996f0051c702c40b10ea6",
-    remote = "https://github.com/bazelbuild/rules_python",
-)
-
-bazel_dep(name = "rules_python_gazelle_plugin", version = "0.31.0", repo_name = "rules_python_gazelle_plugin")
+bazel_dep(name = "rules_python", version = "0.32.1")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "0.32.1", repo_name = "rules_python_gazelle_plugin")
 bazel_dep(name = "rules_poetry", version = "0.3.4")
 bazel_dep(name = "rules_rust", version = "0.42.1")
 bazel_dep(name = "gazelle", version = "0.36.0", repo_name = "bazel_gazelle")

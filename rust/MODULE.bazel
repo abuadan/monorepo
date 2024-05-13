@@ -111,6 +111,6 @@ module(
 #
 # gazelle_rust_dependencies2()
 #
-rust_analyzer_dependencies_ = use_extension("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+# rust_analyzer_dependencies_ = use_extension("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
 
-rust_analyzer_dependencies_()
+# rust_analyzer_dependencies_()
