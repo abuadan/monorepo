@@ -1,3 +1,20 @@
+[project]
+name = "monorepo"
+version = "0.0.1"
+description = "Example of using Bazel with python `src` and `tests` dir"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Abu Adan" },                              # so that package core metadata "Author" field gets populated.
+  { name = "Abu Adan", email = "abuadan@gmail.com" },
+]
+maintainers = []
+keywords = []
+classifiers = []
+dependencies = []
+
+
 [tool.poetry]
 name = "monorepo"
 version = "0.1.0"
@@ -7,6 +24,8 @@ packages = [{ include = "dataplatform", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<4"
+setuptools = "*"
+wheel = "*"
 fastapi = "^0.109.0"
 uvicorn = "^0.26.0"
 gunicorn = "^21.2.0"
@@ -162,6 +181,22 @@ line-length = 88
 indent-width = 4
 
 
+# [build-system]
+# requires = ["poetry>=1.8.2"]
+# build-backend = "poetry.masonry.api"
+
 [build-system]
-requires = ["poetry>=1.8.2"]
-build-backend = "poetry.masonry.api"
+requires = ["setuptools>=61.0", "poetry>=1.8.2"]
+build-backend = "setuptools.build_meta"
+
+
+# [project.optional-dependencies]
+# dev = []
+# build = ["build==0.10.0", "setuptools==65.5.0", "wheel==0.37.1"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
