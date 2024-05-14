@@ -1,7 +1,6 @@
 load("@bazel_gazelle//:def.bzl", "gazelle", "gazelle_binary")
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test", "buildozer_binary")
-load(":version.bzl", "BAZEL_VERSION")
 
 # Copyright 2017 The Bazel Authors. All rights reserved.
 #
@@ -16,7 +15,7 @@ load(":version.bzl", "BAZEL_VERSION")
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-package(default_visibility = ["//visibility:public"])
+# package(default_visibility = ["//visibility:public"])
 
 # gazelle:python_root
 #
@@ -39,7 +38,6 @@ filegroup(
     srcs = [
         "BUILD.bazel",
         "MODULE.bazel",
-        "WORKSPACE",
         "version.bzl",
     ],
     visibility = [
@@ -65,52 +63,6 @@ filegroup(
         "@bazel_tools//tools/python:utils.bzl",
     ],
     visibility = ["//visibility:public"],
-)
-
-genrule(
-    name = "assert_bazelversion",
-    srcs = [".bazelversion"],
-    outs = ["assert_bazelversion_test.sh"],
-    cmd = """\
-set -o errexit -o nounset -o pipefail
-current=$$(cat "$(execpath .bazelversion)")
-cat > "$@" <<EOF
-#!/usr/bin/env bash
-set -o errexit -o nounset -o pipefail
-if [[ \"$${{current}}\" != \"{expected}\" ]]; then
-    >&2 echo "ERROR: current bazel version '$${{current}}' is not the expected '{expected}'"
-    exit 1
-fi
-EOF
-""".format(
-        expected = BAZEL_VERSION,
-    ),
-    executable = True,
-)
-
-gazelle(
-    name = "gazelle",
-    args = ["-build_file_name=BUILD.bazel"],
-    gazelle = ":gazelle_bin",
-    visibility = ["//visibility:private"],
-)
-
-gazelle_binary(
-    name = "gazelle_bin",
-    languages = [
-        "@rules_python_gazelle_plugin//python:python",
-        # "@rules_python//gazelle",  # Use gazelle from rules_python.
-        "@bazel_gazelle//language/go",  # Built-in rule from gazelle for Golang.
-        "@bazel_gazelle//language/proto",  # Built-in rule from gazelle for Protos.
-        # Any languages that depend on Gazelle's proto plugin must come after it.
-        # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
-    ],
-    visibility = ["//visibility:private"],
-)
-
-sh_test(
-    name = "assert_bazelversion_test",
-    srcs = [":assert_bazelversion_test.sh"],
 )
 
 ######
@@ -157,4 +109,26 @@ buildifier_test(
 # Run the buildozer command.
 buildozer_binary(
     name = "buildozer",
+)
+
+#### Gazelle ####################
+
+gazelle(
+    name = "gazelle",
+    # args = ["-build_file_name=BUILD"],
+    gazelle = ":gazelle_bin",
+    visibility = ["//visibility:private"],
+)
+
+gazelle_binary(
+    name = "gazelle_bin",
+    languages = [
+        "@rules_python_gazelle_plugin//python:python",
+        # "@rules_python//gazelle",  # Use gazelle from rules_python.
+        "@bazel_gazelle//language/go",  # Built-in rule from gazelle for Golang.
+        "@bazel_gazelle//language/proto",  # Built-in rule from gazelle for Protos.
+        # Any languages that depend on Gazelle's proto plugin must come after it.
+        # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
+    ],
+    visibility = ["//visibility:private"],
 )
