@@ -3,7 +3,7 @@ name = "monorepo"
 version = "0.0.1"
 description = "Example of using Bazel with python `src` and `tests` dir"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [
   { name = "Abu Adan" },                              # so that package core metadata "Author" field gets populated.
@@ -12,74 +12,89 @@ authors = [
 maintainers = []
 keywords = []
 classifiers = []
-dependencies = []
+dependencies = [
+  # # "fastapi",
+  # "uvicorn",
+  # "gunicorn",
+  # "cleo",
+  # "click",
+  # "tomlkit",
+  # "SQLAlchemy",
+  # # "alembic",
+  # "pydantic",
+  # "pydantic-core",
+  # "pydantic-settings",
+  # "sqlglot[rs]",
+  # "sortedcontainers",
+  # "loguru",
+  # "notifiers",
+  # "pyspark[sql]",
+  # "pyarrow",
+  # "numpy",
+  # "more-itertools",
+  # "django",
+  # "networkx",
+  # "pillow",
+  # "olefile",
+  # "cffi",
+  # "ipython",
+  # "greenlet",
+  # "importlib-metadata",
+  # "importlib-resources",
+  # "matplotlib",
+  # "seaborn",
+  # "defusedxml",
+  # "colorama",
+  # # "PySide6",
+  # # "PyQt6",
+  # "keyring",
+]
 
 
-[tool.poetry]
-name = "monorepo"
-version = "0.1.0"
-description = ""
-authors = ["Abu Adan <abuadan@gmail.com>"]
-packages = [{ include = "dataplatform", from = "src" }]
+[build-system]
+requires = ["setuptools >=69.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry.dependencies]
-python = ">=3.11,<4"
-setuptools = "*"
-wheel = "*"
-fastapi = "^0.109.0"
-uvicorn = "^0.26.0"
-gunicorn = "^21.2.0"
-cleo = "^2.1.0"
-click = "^8.1.7"
-tomlkit = "^0.12.3"
-SQLAlchemy = "^2.0.25"
-alembic = "^1.13.1"
-pydantic = "^2.6.0"
-pydantic-core = "^2.16.1"
-pydantic-settings = "^2.1.0"
-sqlglot = { version = "*", extras = ["rs"] }
-sortedcontainers = "^2.4.0"
-loguru = "^0.7.2"
-notifiers = "^1.3.3"
-pyspark = { version = "^3.5.1", extras = ["sql"] }
-pyarrow = "^15.0.0"
-numpy = "^1.26.4"
-more-itertools = "^10.2.0"
-django = "^5.0.3"
-networkx = { version = "^3.3", extras = ["default"] }
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["dataplatform"]
 
-[tool.poetry.group.dev.dependencies]
-requests = "2.31.0"
-types-requests = "^2.31.0"
-black = "^23.12.1"
-isort = "^5.13.2"
-pre-commit = "^3.6.1"
-mypy = "^1.8.0"
-ruff = "^0.1.14"
-yamllint = "^1.34.0"
-docformatter = "^1.7.5"
-ipython = "^8.21.0"
-bandit = "^1.7.7"
-pyright = "^1.1.361"
-dockerfile = "^3.3.1"
-pants = "^1.0.1"
-matplotlib = "^3.8.4"
-autoflake = "^2.3.1"
 
-[tool.poetry.group.test.dependencies]
-pytest = "7.4.4"
-pytest-asyncio = "^0.15.1"
-pytest-watch = "^4.2.0"
-hypothesis = "^6.96.1"
-pytest-icdiff = "^0.9"
-pytest-xdist = "^3.5.0"
-polyfactory = "^2.14.1"
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-asyncio",
+  "pytest-watch",
+  "hypothesis",
+  "pytest-icdiff",
+  "pytest-xdist",
+  "polyfactory",
+]
+docs = ["mkdocs", "mkdocs-material", "mkdocstrings", "flake8-docstrings"]
+lint = [
+  "black",
+  "isort",
+  "pre-commit",
+  "mypy",
+  "ruff",
+  "bandit",
+  "pyright",
+  "yamllint",
+  "docformatter",
+]
+dev = [
+  "requests",
+  "types-requests",
+  "ipython",
+  "dockerfile",
+  "autoflake",
+  "tox",
+  "monorepo[docs]",
+  "monorepo[test]",
+  "monorepo[lint]",
 
-[tool.poetry.group.docs.dependencies]
-mkdocs = "^1.5.3"
-mkdocs-material = "^9.5.4"
-mkdocstrings = "^0.24.0"
-flake8-docstrings = "^1.6.0"
+]
+build = ["build", "setuptools", "wheel"]
 
 [tool.docformatter]
 recursive = true
@@ -133,10 +148,24 @@ reportUnusedVariable = false
 pythonVersion = "3.12"
 
 [tool.pytest.ini_options]
+filterwarnings = [
+  "ignore:.*U.*mode is deprecated:DeprecationWarning",
+  "error",
+  "ignore:setup.py install is deprecated:Warning",
+  "ignore:easy_install command is deprecated:Warning",
+  "ignore:setuptools.installer and fetch_build_eggs are deprecated:Warning",
+  "ignore:.*ends with a trailing slash, which is not supported by setuptools:FutureWarning",
+  "ignore:Config variable 'Py_DEBUG' is unset:RuntimeWarning",
+  "ignore:Config variable 'WITH_PYMALLOC' is unset, Python ABI tag may be incorrect:RuntimeWarning",
+  "default:shell/Perl-style subs.* are deprecated:DeprecationWarning",
+  "default:subprocess .* is still running:ResourceWarning",
+  "ignore:pkg_resources is deprecated as an API:DeprecationWarning",
+  "ignore:onerror argument is deprecated, use onexc instead:DeprecationWarning",                     # Caused by wheel and Python 3.12
+  "ignore:(ast.Str|Attribute s|ast.NameConstant|ast.Num) is deprecated:DeprecationWarning:_pytest",
+]
 minversion = "7.1"
 addopts = "-ra -q"
 pythonpath = ["src"]
-filterwarnings = "ignore:.*U.*mode is deprecated:DeprecationWarning"
 python_files = ["tests.py", "test_*", "*_tests.py"]
 log_file = "./.logs/pytest.log"
 
@@ -179,24 +208,3 @@ cache-dir = "./.ruff_cache"
 target-version = "py312"
 line-length = 88
 indent-width = 4
-
-
-# [build-system]
-# requires = ["poetry>=1.8.2"]
-# build-backend = "poetry.masonry.api"
-
-[build-system]
-requires = ["setuptools>=61.0", "poetry>=1.8.2"]
-build-backend = "setuptools.build_meta"
-
-
-# [project.optional-dependencies]
-# dev = []
-# build = ["build==0.10.0", "setuptools==65.5.0", "wheel==0.37.1"]
-
-[tool.setuptools]
-package-dir = { "" = "src" }
-
-[tool.setuptools.packages.find]
-where = ["src"]
-

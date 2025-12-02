@@ -2,7 +2,7 @@
 Compute Protocol.
 """
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 from typing import (
     Callable,
     Generic,
@@ -57,7 +57,8 @@ class BaseCompute(ABC, Generic[Compute_T, U]):
         self._config = config
         self._compute_type = compute_type
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def input_data(self):
         raise NotImplementedError
 

@@ -8,11 +8,11 @@ clean-py:
 
 .PHONY: pytest
 pytest:
-	poetry -C python/pyproject.toml run pytest  python/tests
+	poetry -C pyproject.toml run pytest  tests
 
 .PHONY: pip-compile
 pip-compile:
-	pip-compile --all-build-deps --all-extras --output-file=python/requirements.in python/pyproject.toml
+	pipx run --spec pip-tools pip-compile --color --verbose --all-build-deps --all-extras --allow-unsafe --output-file=requirements.in pyproject.toml
 
 .PHONY: gazelle-update-python-dep
 gazelle-update-python-dep:
@@ -24,3 +24,4 @@ gazelle-update-manifest:
 
 .PHONY: update-python-dependencies
 update-python-dependencies: pip-compile gazelle-update-python-dep gazelle-update-manifest
+

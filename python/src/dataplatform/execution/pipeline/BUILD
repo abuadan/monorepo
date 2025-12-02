@@ -8,16 +8,19 @@ py_library(
         "//python/src:__subpackages__",
         "//python/tests:__subpackages__",
     ],
-    deps = [":schema"],
+    deps = [":graph"],
 )
 
 py_library(
-    name = "schema",
-    srcs = ["schema.py"],
+    name = "graph",
+    srcs = ["graph.py"],
     imports = ["../../.."],
     visibility = [
         "//python/src:__subpackages__",
         "//python/tests:__subpackages__",
     ],
-    deps = ["@pypi//pydantic"],
+    deps = [
+        "//python/src/dataplatform/compute:base",
+        "@pypi//networkx",
+    ],
 )

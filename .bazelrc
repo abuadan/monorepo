@@ -11,8 +11,8 @@ test --test_output=errors --enable_runfiles
 build --enable_runfiles
 startup --windows_enable_symlinks
 
-common --experimental_enable_bzlmod
 
+common --enable_bzlmod
 coverage --java_runtime_version=remotejdk_11
 
 build --symlink_prefix=build/bazel-

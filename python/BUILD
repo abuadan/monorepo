@@ -1,5 +1,4 @@
 load("@pypi//:requirements.bzl", "all_whl_requirements")
-load("@rules_poetry//python:poetry.bzl", "poetry_update")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
@@ -67,6 +66,13 @@ compile_pip_requirements(
 # required for the gazelle_python_manifest rule to update our manifest file.
 modules_mapping(
     name = "modules_map",
+    exclude_patterns = [
+        "^_|(\\._)+",  # This is the default.
+        "(\\.tests)+",  # Add a custom one to get rid of the psutil tests.
+        "^colorama",  # Get rid of colorama on Windows.
+        "^(\\.pip)+",
+        "^lazy_object_proxy\\.cext$",  # Get rid of this on Linux because it isn't included on Windows.
+    ],
     wheels = all_whl_requirements,
 )
 
@@ -93,10 +99,4 @@ gazelle_python_manifest(
     # the integrity field is not added to the manifest which can help avoid
     # merge conflicts in large repos.
     requirements = "//python:requirements.lock",
-)
-
-poetry_update(
-    name = "update_lock",
-    lock = "//python:poetry.lock",
-    toml = "//python:pyproject.toml",
 )

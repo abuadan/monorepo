@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: autoflake
         name: autoflake
-        stages: [commit]
+        stages: [pre-commit]
         language: system
         entry: autoflake
         args:
@@ -15,7 +15,7 @@ repos:
 
       - id: isort
         name: isort
-        stages: [commit]
+        stages: [pre-commit]
         language: system
         entry: isort
         args: ["--profile", "black", "--project", "app", "--filter-files"]
@@ -23,7 +23,7 @@ repos:
 
       - id: black
         name: black
-        stages: [commit]
+        stages: [pre-commit]
         language: system
         entry: black
         types: [python]
@@ -34,12 +34,12 @@ repos:
       #   language: system
       #   entry: .git_hook_scripts/prepend_jira_id_to_commit_message.sh
 
-      - id: ruff
-        name: ruff
-        entry: ruff
-        language: system
-        types: [python]
-        require_serial: true
+      # - id: ruff
+      #   name: ruff
+      #   entry: ruff
+      #   language: system
+      #   types: [python]
+      #   require_serial: true
       ########## Dockerfiles ####################
       - id: hadolint-docker
         name: Lint Dockerfiles
