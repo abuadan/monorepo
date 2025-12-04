@@ -1,4 +1,4 @@
-load("@pypi//:requirements.bzl", "all_whl_requirements")
+load("@pip//:requirements.bzl", "all_whl_requirements")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
@@ -89,7 +89,7 @@ gazelle_python_manifest(
     modules_mapping = ":modules_map",
     # This is what we called our `pip_parse` rule, where third-party
     # python libraries are loaded in BUILD files.
-    pip_repository_name = "pypi",
+    pip_repository_name = "pip",
     # This should point to wherever we declare our python dependencies.
     # It's the same as what we passed to the pip.parse rule in MODULE.bazel and
     # is the same filename that we used in the `requirements_txt` attribute of
