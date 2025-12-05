@@ -115,12 +115,12 @@ register_toolchains("//tools/toolchains:all")
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(
     name = "go_sdk",
-    version = "1.21.1",
+    version = "1.25.5",
 )
 use_repo(go_sdk, "go_sdk")
 
 go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
-go_deps.from_file(go_mod = "//go:go.mod")
+go_deps.from_file(go_mod = "//:go.mod")
 use_repo(
     go_deps,
     "com_github_gogo_protobuf",
@@ -154,19 +154,11 @@ use_repo(
 ################################################################################
 # rules_python
 ################################################################################
-
-# internal_deps = use_extension("@rules_python//python/private/bzlmod:internal_deps.bzl", "internal_deps")
-# internal_deps.install()
-# use_repo(
-#     internal_deps,
-#     "rules_python_internal",
-# )
-
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
     configure_coverage_tool = True,
     is_default = True,
-    python_version = "3.12",
+    python_version = "3.13",
 )
 use_repo(python, "pythons_hub")
 
@@ -181,8 +173,8 @@ pip.parse(
     experimental_index_url = "https://pypi.org/simple",
     # This name is what gets used in other BUILD files with `load()`.
     hub_name = "pip",
-    python_version = "3.12",
-    requirements_lock = "//python:requirements.lock",
+    python_version = "3.13",
+    requirements_lock = "//python:all.txt",
 )
 
 # Same as WORKSPACE install_deps() - actually install the python deps.
@@ -206,14 +198,48 @@ maven.install(
         "monorepo",
         "protobuf",
     ],
-    lock_file = "//:jvm/maven_install.json",
+    lock_file = "//:maven_install.json",
 )
 use_repo(maven, "maven")
 
 ################################################################################
 # rules_js
 ################################################################################
+node = use_extension(
+    "@rules_nodejs//nodejs:extensions.bzl",
+    "node",
+    dev_dependency = True,
+)
+node.toolchain(
+    include_headers = True,
+    node_version = "20.18.0",
+)
+use_repo(node, "nodejs_toolchains")
 
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+# Allows developers to get a local node_modules tree, using
+# bazel run -- @pnpm//:pnpm --dir $PWD install
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    lifecycle_hooks_execution_requirements = {
+        "lmdb": ["no-remote-exec"],  # requires non-hermetic GLIBCXX_3.4.29 which is not found on remote executors but is available on host
+    },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps()
+use_repo(rules_ts_ext, "npm_typescript")
 ################################################################################
 # rules_rust
 ################################################################################
@@ -309,10 +335,25 @@ dev_pip.parse(
         ],
     },
     hub_name = "dev_pip",
-    python_version = "3.12",
-    requirements_lock = "//:python/requirements.lock",
+    python_version = "3.13",
+    requirements_lock = "//:python/all.txt",
 )
 use_repo(dev_pip, "dev_pip")
+
+################################################################################
+# Swift
+################################################################################
+swift_deps = use_extension(
+    "@rules_swift_package_manager//:extensions.bzl",
+    "swift_deps",
+)
+swift_deps.from_file(
+    deps_index = "//:swift_deps_index.json",
+)
+use_repo(
+    swift_deps,
+    "swiftpkg_swifterswift",
+)
 
 ################################################################################
 # Utilities

@@ -1,0 +1,31 @@
+  {
+    "name": "monorepo",
+    "// dependencies": "in the root package, only dependencies for monorepo-wide tooling should appear",
+    "private": true,
+    "version": "0.0.0",
+    "keywords": [
+      "monorepo",
+      "bazel"
+    ],
+    "homepage": "https://github.com/abuadan/monorepo",
+    "repository": "https://github.com/abuadan/monorepo.git",
+    "license": "Apache-2.0",
+    "engines": {
+      "node": ">=12 <20"
+    },
+    "packageManager": "pnpm@10.24",
+    "devDependencies": {
+      "@bazel/bazelisk": "^1.10.1",
+      "@bazel/buildifier": "^3.2.0",
+      "@bazel/buildozer": "^3.2.0",
+      "@commitlint/cli": "^12.1.4",
+      "@commitlint/config-conventional": "^12.1.4",
+      "@types/node": "^15.12.2",
+      "conventional-changelog-cli": "^2.0.21"
+    },
+    "scripts": {
+      "// See comment in .bazelrc": "",
+      "update-nodejs-versions": "node ./scripts/update-nodejs-versions.js > nodejs/private/node_versions.bzl",
+      "update-changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    }
+  }

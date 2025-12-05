@@ -1,0 +1,5 @@
+# See README.md
+-c requirements.txt
+pytest
+coverage
+mypy

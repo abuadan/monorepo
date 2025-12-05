@@ -1,0 +1,29 @@
+# GENERATED FILE - DO NOT EDIT!
+#
+# To update this file, run:
+#   bazel run //python:gazelle_python_manifest.update
+
+---
+manifest:
+  modules_mapping:
+    4c842c94c09923bae9e4__mypyc: mypy
+    coverage: coverage
+    iniconfig: iniconfig
+    librt.internal: librt
+    mypy: mypy
+    mypy_extensions: mypy_extensions
+    mypyc: mypy
+    packaging: packaging
+    pathspec: pathspec
+    pkg_resources: setuptools
+    pluggy: pluggy
+    py: pytest
+    pygments: pygments
+    pytest: pytest
+    setuptools: setuptools
+    setuptools_scm: setuptools_scm
+    typing_extensions: typing_extensions
+    wheel: wheel
+  pip_repository:
+    name: pip
+integrity: 99068ed7e9005540040631868c4724f88e145381e3ac8ba065823a299d7274c6

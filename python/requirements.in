@@ -1,37 +1,5 @@
-# fastapi
-uvicorn
-gunicorn
-cleo
-click
-tomlkit
-SQLAlchemy
-# alembic
-pydantic
-pydantic-core
-pydantic-settings
-sqlglot[rs]
-sortedcontainers
-loguru
-notifiers
-pyspark[sql]
-pyarrow
-numpy
-more-itertools
-django
-networkx[extra]
-pillow
-olefile
-cffi
-ipython
-greenlet
-importlib-metadata
-importlib-resources
-matplotlib
-seaborn
-defusedxml
-colorama
-# PySide6
-# PyQt6
-keyring
-pytest
-uv
+# Collect all dependencies, to pass to pip.parse and create the @pip repository.
+# Workaround for https://github.com/bazelbuild/rules_python/issues/1971
+# See ./README.md
+-r test.in
+-r requirements.txt

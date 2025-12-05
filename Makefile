@@ -12,15 +12,16 @@ pytest:
 
 .PHONY: pip-compile
 pip-compile:
-	pip-compile --all-build-deps --all-extras --output-file=python/requirements.in python/pyproject.toml
+	pip-compile --all-build-deps --all-extras --output-file=python/requirements.in pyproject.toml
 
 .PHONY: gazelle-update-python-dep
 gazelle-update-python-dep:
-	bazel run //python:requirements.update
+	# bazel run //python:requirements.update
+	bazel run //:generate_requirements_txt
 
 .PHONY: gazelle-update-manifest
 gazelle-update-manifest:
-	bazel run //python:gazelle_python_manifest.update
+	bazel run //gazelle_python_manifest.update
 
 .PHONY: update-python-dependencies
 update-python-dependencies: pip-compile gazelle-update-python-dep gazelle-update-manifest
