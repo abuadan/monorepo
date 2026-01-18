@@ -32,6 +32,7 @@ bazel_dep(name = "rules_swift", version = "3.4.0")
 bazel_dep(name = "rules_swift_package_manager", version = "1.11.0")
 bazel_dep(name = "rules_oci", version = "2.2.7")
 bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "rules_foreign_cc", version = "0.15.0")
 bazel_dep(name = "rules_kotlin", version = "2.2.0")
 bazel_dep(name = "rules_java", version = "9.2.0")
 bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")
@@ -43,6 +44,17 @@ bazel_dep(name = "toolchains_protoc", version = "0.6.0")
 bazel_dep(name = "rules_multitool", version = "1.9.0")
 bazel_dep(name = "aspect_rules_lint", version = "1.10.2")
 bazel_dep(name = "aspect_bazel_lib", version = "2.21.2")
+
+# Graphviz Dependencies from BCR
+bazel_dep(name = "zlib", version = "1.3.1.bcr.3")
+bazel_dep(name = "libpng", version = "1.6.53")
+bazel_dep(name = "freetype", version = "2.13.3")
+bazel_dep(name = "libexpat", version = "2.7.1", repo_name = "expat")
+bazel_dep(name = "libjpeg_turbo", version = "3.1.3")
+bazel_dep(name = "libffi", version = "3.4.7.bcr.3")
+bazel_dep(name = "glib", version = "2.82.2.bcr.6")
+bazel_dep(name = "harfbuzz", version = "11.0.1")
+bazel_dep(name = "pkg-config", version = "0.29.2")
 
 # Gazelle for auto BUILD generation. See
 # https://github.com/bazelbuild/rules_python/blob/main/gazelle/README.md
@@ -65,12 +77,60 @@ bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.8.2")
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+bazel_dep(name = "pixman", version = "0.46.4")
+bazel_dep(name = "cairo", version = "1.18.4")
+
+# Graphviz Source Dependencies (Legacy versions for Autotools support)
+# We are migrating these to native builds or BCR
+http_archive(
+    name = "gd",
+    build_file = "//bazel/third_party/gd:gd.BUILD",
+    sha256 = "3fe822ece20796060af63b7c60acb151e5844204d289da0ce08f8fdf131e5a61",
+    strip_prefix = "libgd-2.3.3",
+    url = "https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.xz",
+)
+
+# Cairo and Pixman are now from BCR
+
+# http_archive(
+#     name = "pango",
+#     build_file = "//bazel/third_party/pango:pango.BUILD",
+#     sha256 = "1d2b74cd63e8bd41961f2f8d952355aa0f9be6002b52c8aa7699d9f5da597c9d",
+#     strip_prefix = "pango-1.42.4",
+#     url = "https://download.gnome.org/sources/pango/1.42/pango-1.42.4.tar.xz",
+# )
+
+http_archive(
+    name = "fontconfig",
+    build_file = "//bazel/third_party/fontconfig:fontconfig.BUILD",
+    sha256 = "dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b",
+    strip_prefix = "fontconfig-2.14.2",
+    url = "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.14.2.tar.xz",
+)
+
+# http_archive(
+#     name = "fribidi",
+#     build_file = "//bazel/third_party/fribidi:fribidi.BUILD",
+#     sha256 = "0cd233f97fc8c67bb3ac27ce8440def5d3ffacf516765b91c2cc654498293495",
+#     strip_prefix = "fribidi-1.0.12",
+#     url = "https://github.com/fribidi/fribidi/releases/download/v1.0.12/fribidi-1.0.12.tar.xz",
+# )
+
+# Replace hermetic bottle Graphviz with source build again
+http_archive(
+    name = "graphviz",
+    build_file = "//bazel/third_party/graphviz:graphviz.BUILD",
+    sha256 = "85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b",
+    strip_prefix = "graphviz-12.2.1",
+    url = "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.2.1/graphviz-12.2.1.tar.xz",
+)
+
 ################################################################################
 # Fetch tools
 # https://blog.aspect.build/run-tools-installed-by-bazel
 ################################################################################
 multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
-multitool.hub(lockfile = "//tools:tools.lock.json")
+multitool.hub(lockfile = "//bazel/tools:tools.lock.json")
 use_repo(multitool, "multitool")
 
 ################################################################################
@@ -107,7 +167,7 @@ register_toolchains("@llvm_toolchain//:all")
 
 register_toolchains("@toolchains_protoc_hub//:all")
 
-register_toolchains("//tools/toolchains:all")
+register_toolchains("//bazel/toolchains:all")
 
 ################################################################################
 # rules_go
@@ -164,6 +224,10 @@ use_repo(python, "pythons_hub")
 
 register_toolchains("@pythons_hub//:all")
 
+register_toolchains("@rules_foreign_cc//toolchains:preinstalled_make_toolchain")
+
+register_toolchains("//bazel/toolchains/pkgconfig:pkgconfig_toolchain")
+
 # Enable pip
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
@@ -179,6 +243,9 @@ pip.parse(
     hub_name = "pip",
     python_version = "3.13",
     requirements_lock = "//python:requirements.lock",
+    whl_modifications = {
+        "pygraphviz": "//bazel/tools/third_party:pygraphviz",
+    },
 )
 
 # Same as WORKSPACE install_deps() - actually install the python deps.
@@ -378,4 +445,55 @@ use_repo(
     "build_bazel_bazel_latests",
     "build_bazel_bazel_rolling",
     "build_bazel_bazel_self",
+)
+
+#################################################################
+# Other Tools
+#################################################################
+
+http_archive(
+    name = "gcc-linux-x86_64",
+    build_file = "//bazel/toolchains/cc/gcc/bootlin:BUILD.bootlin.bazel",
+    integrity = "sha256-dgrNXDFZRIthjiN7YZNTNbqtp0/gzcDXYRgmy0m0HIw=",
+    patch_cmds = [
+        # The tools used by foreign_cc search the tools under their standard,
+        # non-decorated names and pass them all the flags, including `--sysroot`.
+        # But the combination of `--sysroot` and the multiple levels of symlink
+        # in the sandbox confuse the linker.
+        # This creates a wrapper for `ld` that removes the `--sysroot` argument.
+        "mv x86_64-buildroot-linux-gnu/bin/ld{,.orig}",
+        "echo '%s' > x86_64-buildroot-linux-gnu/bin/ld" % """\
+#!/usr/bin/env bash
+
+args=("$@")
+for ((i = 0; i < $#; i++)); do
+    [[ "${args[i]}" == --sysroot=* ]] && unset args[i]
+done
+exec "$(dirname -- "${BASH_SOURCE[0]}")"/ld.orig "${args[@]}"
+""",
+        "chmod 755 x86_64-buildroot-linux-gnu/bin/ld",
+    ],
+    strip_prefix = "x86-64--glibc--stable-2025.08-1",
+    urls = ["https://toolchains.bootlin.com/downloads/releases/toolchains/x86-64/tarballs/x86-64--glibc--stable-2025.08-1.tar.xz"],
+)
+
+register_toolchains(
+    # "@multitool_hub//toolchains:all",
+    # "@rust_toolchains//:all",
+    # "@musl_toolchains_hub//:all",
+    "//bazel/toolchains/cc/gcc:host_gcc_toolchain",
+    "//bazel/toolchains/cc/gcc/local:linux_x86_64",
+)
+
+###################################################################
+# Patches
+###################################################################
+
+single_version_override(
+    module_name = "rules_cc",
+    patch_strip = 1,
+    patches = [
+        "//bazel/patches:rules_cc-publicize_unix_cc_toolchain_config.patch",
+        "//bazel/patches:rules_cc-add_static_link_cpp_runtimes.patch",
+    ],
 )

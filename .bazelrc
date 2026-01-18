@@ -51,4 +51,4 @@ build:ci --keep_going --experimental_scale_timeouts=3 --config=check
 ###############################################################################
 
 try-import %workspace%/user.bazelrc
-common --enable_platform_specific_config
+

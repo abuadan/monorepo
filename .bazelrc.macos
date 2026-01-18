@@ -1,2 +1,0 @@
-common --repo_env=CFLAGS=-I/opt/homebrew/opt/graphviz/include/
-common --repo_env=LDFLAGS=-L/opt/homebrew/opt/graphviz/lib/

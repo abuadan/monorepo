@@ -221,6 +221,6 @@ npm_link_all_packages(name = "node_modules")
 ################################################################################
 alias(
     name = "format",
-    actual = "//tools/format:format",
+    actual = "//bazel/tools/format:format",
     visibility = ["//visibility:public"],
 )
