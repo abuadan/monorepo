@@ -49,6 +49,5 @@ build:ci --keep_going --experimental_scale_timeouts=3 --config=check
 ## consistent behavior when setting flags in that file as `.bazelrc` files are
 ## evaluated top to bottom.
 ###############################################################################
-
 try-import %workspace%/user.bazelrc
 

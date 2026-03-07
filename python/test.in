@@ -2,4 +2,3 @@
 -c requirements.txt
 pytest
 coverage
-mypy

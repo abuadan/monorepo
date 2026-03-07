@@ -8,7 +8,7 @@ clean-py:
 
 .PHONY: pytest
 pytest:
-	poetry -C pyproject.toml run pytest  tests
+	uv -C pyproject.toml run pytest  tests
 
 .PHONY: pip-compile
 pip-compile:

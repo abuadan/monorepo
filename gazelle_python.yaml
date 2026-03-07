@@ -6,7 +6,6 @@
 ---
 manifest:
   modules_mapping:
-    4c842c94c09923bae9e4__mypyc: mypy
     PIL: pillow
     certifi: certifi
     cffi: cffi
@@ -21,21 +20,16 @@ manifest:
     iniconfig: iniconfig
     isympy: sympy
     kiwisolver: kiwisolver
-    librt.internal: librt
     lxml: lxml
     matplotlib: matplotlib
     mpl_toolkits.axes_grid1: matplotlib
     mpl_toolkits.axisartist: matplotlib
     mpl_toolkits.mplot3d: matplotlib
     mpmath: mpmath
-    mypy: mypy
-    mypy_extensions: mypy_extensions
-    mypyc: mypy
     networkx: networkx
     numpy: numpy
     packaging: packaging
     pandas: pandas
-    pathspec: pathspec
     pluggy: pluggy
     py: pytest
     pycparser: pycparser
@@ -50,9 +44,8 @@ manifest:
     scipy: scipy
     six: six
     sympy: sympy
-    typing_extensions: typing_extensions
     tzdata: tzdata
     urllib3: urllib3
   pip_repository:
     name: pip
-integrity: 01af5571a90df8e8a77b4e3465920bc49ac35920942c791fcf947509ba2a1ece
+integrity: 35e2278e0ae3d7861a056971a0dc41e03d293b5d88f82af875af7bb6091cc9cf
