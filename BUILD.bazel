@@ -155,6 +155,8 @@ buildozer_binary(
 # gazelle:js_npm_package_target_name pkg
 # gazelle:js_package_rule_kind js_library
 # gazelle:js_project_naming_convention tsc
+# gazelle:rust_cargo_lockfile Cargo.lock
+# gazelle:rust_crates_prefix @crates//:
 ################################################################################
 
 gazelle(
@@ -168,7 +170,7 @@ gazelle_binary(
     languages = DEFAULT_LANGUAGES + [
         "@rules_python_gazelle_plugin//python",
         "@contrib_rules_jvm//java/gazelle",
-        # "@gazelle_rust//rust_language",  # Couldn't get this to work required additional overrides wait for package to update to bzlmod
+        "@gazelle_rust//rust_language:rust_language",
     ],
     visibility = ["//visibility:private"],
 )

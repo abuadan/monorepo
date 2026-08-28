@@ -1,0 +1,17 @@
+[package]
+name = "sql_core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+logos = "0.16"
+thiserror = "2"
+ariadne = "0.6"
+chumsky = { version = "1.0.0-alpha.8", features = ["pratt"] }
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "keyword_lookup"
+harness = false

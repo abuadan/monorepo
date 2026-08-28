@@ -1,0 +1,45 @@
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 458, "kind": "verified_only_select", "sql": "SELECT \"alias\".\"bar baz\", \"myfun\"(), \"simple id\" AS \"column alias\" FROM \"a table\" AS \"alias\""}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 39, "kind": "verified_stmt", "sql": "SELECT name filter FROM region"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 40, "kind": "verified_stmt", "sql": "CREATE TABLE IF NOT EXISTS db.table (a BIGINT, b STRING, c TIMESTAMP) PARTITIONED BY (d STRING, e TIMESTAMP) STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcInputFormat' OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.orc.OrcOutputFormat' LOCATION 's3://...'"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 41, "kind": "verified_stmt", "sql": "CREATE EXTERNAL TABLE IF NOT EXISTS db.table (a STRING, b STRING, c STRING) PARTITIONED BY (d STRING, e STRING) ROW FORMAT SERDE 'org.apache.hadoop.hive.serde.config' WITH SERDEPROPERTIES ('prop_a' = 'a', 'prop_b' = 'b') STORED AS TEXTFILE LOCATION 's3://...' TBLPROPERTIES ('prop_c' = 'c')"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 42, "kind": "verified_stmt", "sql": "CREATE EXTERNAL TABLE t (c INT)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 47, "kind": "verified_stmt", "sql": "DESCRIBE namespace.`table`"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 48, "kind": "verified_stmt", "sql": "DESCRIBE namespace.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 49, "kind": "verified_stmt", "sql": "DESCRIBE table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 54, "kind": "verified_stmt", "sql": "DESCRIBE FORMATTED test.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 59, "kind": "verified_stmt", "sql": "DESCRIBE EXTENDED test.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 65, "kind": "verified_stmt", "sql": "INSERT OVERWRITE TABLE db.new_table PARTITION (a = '1', b) SELECT a, b, c FROM db.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 71, "kind": "verified_stmt", "sql": "TRUNCATE TABLE db.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 77, "kind": "verified_stmt", "sql": "ANALYZE TABLE db.table_name PARTITION (a = '1234', b) COMPUTE STATISTICS FOR COLUMNS"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 91, "kind": "verified_stmt", "sql": "MSCK REPAIR TABLE db.table_name ADD PARTITIONS"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 92, "kind": "verified_stmt", "sql": "MSCK REPAIR TABLE db.table_name"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 98, "kind": "verified_stmt", "sql": "SET HIVEVAR:name = a, b, c_d"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 104, "kind": "verified_stmt", "sql": "SELECT * FROM db.table WHERE a <=> b"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 110, "kind": "verified_stmt", "sql": "WITH a AS (SELECT * FROM b) INSERT INTO TABLE db.table_table PARTITION (a) SELECT * FROM b"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 116, "kind": "verified_stmt", "sql": "DROP TABLE db.table_name PURGE"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 122, "kind": "verified_stmt", "sql": "CREATE TABLE db.table_name LIKE db.other_table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 196, "kind": "verified_stmt", "sql": "CREATE TABLE db.table_name (a INT, b STRING) PARTITIONED BY (a INT, b STRING) CLUSTERED BY (a, b) INTO 4 BUCKETS"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 232, "kind": "verified_stmt", "sql": "SELECT a AS 3_barrr_asdf FROM db.table_name"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 238, "kind": "verified_stmt", "sql": "ALTER TABLE db.table PARTITION (a = 2) RENAME TO PARTITION (a = 1) SET LOCATION 's3://...'"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 257, "kind": "verified_stmt", "sql": "ALTER TABLE db.table ADD IF NOT EXISTS PARTITION (`a` = 'asdf', `b` = 2) PARTITION (`a` = 'asdh', `b` = 3)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 269, "kind": "verified_stmt", "sql": "ALTER TABLE db.table DROP IF EXISTS PARTITION (a = 'b', c = 'd')"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 281, "kind": "verified_stmt", "sql": "SELECT a FROM db.table DISTRIBUTE BY a, b"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 293, "kind": "verified_stmt", "sql": "SELECT a, b FROM db.table_name JOIN a"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 299, "kind": "verified_stmt", "sql": "INSERT OVERWRITE LOCAL DIRECTORY '/home/blah' STORED AS TEXTFILE SELECT * FROM db.table"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 339, "kind": "verified_stmt", "sql": "SELECT a FROM db.table LATERAL VIEW explode(a) t AS j, P LATERAL VIEW OUTER explode(a) t AS a, b WHERE a = 1"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 345, "kind": "verified_stmt", "sql": "SELECT * FROM db.table SORT BY a"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 348, "kind": "verified_stmt", "sql": "SELECT * FROM db.table SORT BY a, b DESC"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 354, "kind": "verified_stmt", "sql": "WITH cte AS (SELECT * FROM a.b) FROM cte INSERT INTO TABLE a.b PARTITION (a) SELECT *"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 373, "kind": "verified_stmt", "sql": "SET hive.tez.java.opts = -Xmx4g"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 520, "kind": "verified_stmt", "sql": "CREATE TABLE \"foo\" (\"bar\" \"int\")"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 521, "kind": "verified_stmt", "sql": "ALTER TABLE foo ADD CONSTRAINT \"bar\" PRIMARY KEY (baz)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 532, "kind": "verified_stmt", "sql": "USE {object_name}"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 540, "kind": "verified_stmt", "sql": "USE {quote}{object_name}{quote}"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 550, "kind": "verified_stmt", "sql": "USE DEFAULT"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 557, "kind": "verified_stmt", "sql": "SELECT * FROM source TABLESAMPLE (BUCKET 3 OUT OF 32 ON rand()) AS s"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 558, "kind": "verified_stmt", "sql": "SELECT * FROM source TABLESAMPLE (BUCKET 3 OUT OF 16 ON id)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 559, "kind": "verified_stmt", "sql": "SELECT * FROM source TABLESAMPLE (100M) AS s"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 560, "kind": "verified_stmt", "sql": "SELECT * FROM source TABLESAMPLE (0.1 PERCENT) AS s"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 561, "kind": "verified_stmt", "sql": "SELECT * FROM source TABLESAMPLE (10 ROWS)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 320, "kind": "one_statement_parses_to", "sql": "CREATE TEMP TABLE db.table (a INT NOT NULL)"}
+{"dialect": "hive", "source_file": "sqlparser_hive.rs", "line": 452, "kind": "one_statement_parses_to", "sql": "SELECT name filter FROM region"}

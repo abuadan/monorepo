@@ -1,0 +1,225 @@
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2337, "kind": "verified_only_select", "sql": "SELECT 'abc' {str_op} '^a'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2351, "kind": "verified_only_select", "sql": "SELECT 'abc' {str_op} ANY(ARRAY['^a', 'x'])"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2381, "kind": "verified_only_select", "sql": "SELECT 'abc' {str_op} 'a_c%'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2395, "kind": "verified_only_select", "sql": "SELECT 'abc' {str_op} ALL(ARRAY['a_c%'])"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2417, "kind": "verified_only_select", "sql": "CREATE TABLE p PARTITION OF parent FOR VALUES FROM (1) TO ()"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3637, "kind": "verified_only_select", "sql": "SELECT * FROM JSON_TABLE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4332, "kind": "verified_only_select", "sql": "SELECT \"alias\".\"bar baz\", \"myfun\"(), \"simple id\" AS \"column alias\" FROM \"a table\" AS \"alias\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5196, "kind": "verified_only_select", "sql": "SELECT brand, size, sum(sales) FROM items_sold GROUP BY size, GROUPING SETS ((brand), (size), ())"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5217, "kind": "verified_only_select", "sql": "SELECT brand, size, sum(sales) FROM items_sold GROUP BY size, ROLLUP (brand, size)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5237, "kind": "verified_only_select", "sql": "SELECT brand, size, sum(sales) FROM items_sold GROUP BY size, CUBE (brand, size)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5400, "kind": "verified_only_select", "sql": "SELECT REGEXP.REGEXP AS REGEXP FROM REGEXP AS REGEXP WHERE REGEXP.REGEXP"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5515, "kind": "verified_only_select", "sql": "SELECT * FROM t1 JOIN UNNEST(t1.a) AS f ON c1 = c2"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5940, "kind": "verified_only_select", "sql": "SELECT * FROM generate_series(1, 10) WITH ORDINALITY AS t"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5958, "kind": "verified_only_select", "sql": "SELECT * FROM UNNEST([10, 20, 30]) WITH ORDINALITY AS t"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6792, "kind": "verified_only_select", "sql": "SELECT B'111'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 517, "kind": "verified_stmt", "sql": "CREATE TABLE t (c TEXT DEFAULT (foo())::TEXT)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 518, "kind": "verified_stmt", "sql": "CREATE TABLE t (c TEXT DEFAULT (foo())::INT::TEXT)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 519, "kind": "verified_stmt", "sql": "CREATE TABLE t (c TEXT DEFAULT (foo())::TEXT NOT NULL)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 563, "kind": "verified_stmt", "sql": "CREATE TABLE p PARTITION OF parent FOR VALUES FROM (1) TO ()"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 570, "kind": "verified_stmt", "sql": "CREATE TABLE t ()"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 638, "kind": "verified_stmt", "sql": "ALTER TABLE tab RENAME CONSTRAINT old_name TO new_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 651, "kind": "verified_stmt", "sql": "ALTER TABLE t ADD CONSTRAINT b UNIQUE NULLS NOT DISTINCT (c)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 665, "kind": "verified_stmt", "sql": "ALTER TABLE t ADD CONSTRAINT b UNIQUE NULLS DISTINCT (c)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 666, "kind": "verified_stmt", "sql": "ALTER TABLE t ADD CONSTRAINT b UNIQUE (c)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 690, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD CONSTRAINT c UNIQUE USING INDEX my_index"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 693, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD PRIMARY KEY USING INDEX my_index"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 694, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD UNIQUE USING INDEX my_index"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 697, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD CONSTRAINT c PRIMARY KEY USING INDEX my_index DEFERRABLE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 700, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD CONSTRAINT c UNIQUE USING INDEX my_index NOT DEFERRABLE INITIALLY IMMEDIATE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 703, "kind": "verified_stmt", "sql": "ALTER TABLE tab ADD CONSTRAINT c PRIMARY KEY USING INDEX my_index DEFERRABLE INITIALLY DEFERRED"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 710, "kind": "verified_stmt", "sql": "ALTER TABLE tab DISABLE ROW LEVEL SECURITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 711, "kind": "verified_stmt", "sql": "ALTER TABLE tab DISABLE RULE rule_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 716, "kind": "verified_stmt", "sql": "ALTER TABLE tab DISABLE TRIGGER ALL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 717, "kind": "verified_stmt", "sql": "ALTER TABLE tab DISABLE TRIGGER USER"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 718, "kind": "verified_stmt", "sql": "ALTER TABLE tab DISABLE TRIGGER trigger_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 723, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE ALWAYS RULE rule_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 724, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE ALWAYS TRIGGER trigger_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 725, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE REPLICA TRIGGER trigger_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 726, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE REPLICA RULE rule_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 727, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE ROW LEVEL SECURITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 728, "kind": "verified_stmt", "sql": "ALTER TABLE tab FORCE ROW LEVEL SECURITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 729, "kind": "verified_stmt", "sql": "ALTER TABLE tab NO FORCE ROW LEVEL SECURITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 730, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE RULE rule_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 731, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE TRIGGER ALL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 732, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE TRIGGER USER"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 733, "kind": "verified_stmt", "sql": "ALTER TABLE tab ENABLE TRIGGER trigger_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 739, "kind": "verified_stmt", "sql": "TRUNCATE TABLE \"users\", \"orders\" RESTART IDENTITY RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 740, "kind": "verified_stmt", "sql": "TRUNCATE users, orders RESTART IDENTITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 745, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 746, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH SCHEMA schema_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 747, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH VERSION version"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 748, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 749, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH SCHEMA schema_name VERSION version CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 753, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH SCHEMA schema_name CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 754, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH VERSION version CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 756, "kind": "verified_stmt", "sql": "CREATE EXTENSION extension_name WITH SCHEMA schema_name VERSION version"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 762, "kind": "verified_stmt", "sql": "DROP EXTENSION extension_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 770, "kind": "verified_stmt", "sql": "DROP EXTENSION extension_name CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 779, "kind": "verified_stmt", "sql": "DROP EXTENSION extension_name RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 788, "kind": "verified_stmt", "sql": "DROP EXTENSION extension_name, extension_name2 CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 797, "kind": "verified_stmt", "sql": "DROP EXTENSION extension_name, extension_name2 RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 806, "kind": "verified_stmt", "sql": "DROP EXTENSION IF EXISTS extension_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 815, "kind": "verified_stmt", "sql": "DROP EXTENSION IF EXISTS extension_name CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 824, "kind": "verified_stmt", "sql": "DROP EXTENSION IF EXISTS extension_name RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 834, "kind": "verified_stmt", "sql": "DROP EXTENSION IF EXISTS extension_name1, extension_name2 CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 844, "kind": "verified_stmt", "sql": "DROP EXTENSION IF EXISTS extension_name1, extension_name2 RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 855, "kind": "verified_stmt", "sql": "ALTER TABLE tab ALTER COLUMN is_active TYPE TEXT USING 'text'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 858, "kind": "verified_stmt", "sql": "ALTER TABLE tab ALTER COLUMN is_active SET DATA TYPE TEXT USING 'text'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 882, "kind": "verified_stmt", "sql": "ALTER TABLE t ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 884, "kind": "verified_stmt", "sql": "ALTER TABLE t ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 885, "kind": "verified_stmt", "sql": "ALTER TABLE t ALTER COLUMN id ADD GENERATED AS IDENTITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 886, "kind": "verified_stmt", "sql": "ALTER TABLE t ALTER COLUMN id ADD GENERATED AS IDENTITY ( INCREMENT 1 MINVALUE 1 )"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 889, "kind": "verified_stmt", "sql": "ALTER TABLE t ALTER COLUMN id ADD GENERATED AS IDENTITY ( )"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 917, "kind": "verified_stmt", "sql": "ALTER TABLE IF EXISTS ONLY tab ADD COLUMN a TEXT, ADD COLUMN b INT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1128, "kind": "verified_stmt", "sql": "COPY bitwise_test FROM STDIN NULL 'null'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1184, "kind": "verified_stmt", "sql": "COPY users FROM 'data.csv'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1202, "kind": "verified_stmt", "sql": "COPY users FROM 'data.csv' DELIMITER ','"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1220, "kind": "verified_stmt", "sql": "COPY users FROM 'data.csv' DELIMITER ',' CSV HEADER"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1244, "kind": "verified_stmt", "sql": "COPY users TO 'data.csv'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1262, "kind": "verified_stmt", "sql": "COPY users TO 'data.csv' DELIMITER ','"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1280, "kind": "verified_stmt", "sql": "COPY users TO 'data.csv' DELIMITER ',' CSV HEADER"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1385, "kind": "verified_stmt", "sql": "COPY country TO STDOUT (DELIMITER '|')"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1402, "kind": "verified_stmt", "sql": "COPY country TO PROGRAM 'gzip > /usr1/proj/bray/sql/country_data.gz'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1420, "kind": "verified_stmt", "sql": "COPY (SELECT 42 AS a, 'hello' AS b) TO 'query.csv'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1493, "kind": "verified_stmt", "sql": "COPY users FROM 'data.csv' BINARY DELIMITER ',' NULL 'null' CSV HEADER QUOTE '\"' ESCAPE '\\' FORCE NOT NULL column"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1550, "kind": "verified_stmt", "sql": "COPY users TO 'data.csv' BINARY DELIMITER ',' NULL 'null' CSV HEADER QUOTE '\"' ESCAPE '\\' FORCE QUOTE column"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1581, "kind": "verified_stmt", "sql": "SET a = b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1596, "kind": "verified_stmt", "sql": "SET a = 'b'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1609, "kind": "verified_stmt", "sql": "SET a = 0"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1620, "kind": "verified_stmt", "sql": "SET a = DEFAULT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1631, "kind": "verified_stmt", "sql": "SET LOCAL a = b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1642, "kind": "verified_stmt", "sql": "SET a.b.c = b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1704, "kind": "verified_stmt", "sql": "SET ROLE 'rolename'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1747, "kind": "verified_stmt", "sql": "SHOW a a"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1755, "kind": "verified_stmt", "sql": "SHOW ALL ALL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1766, "kind": "verified_stmt", "sql": "DEALLOCATE a"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1775, "kind": "verified_stmt", "sql": "DEALLOCATE ALL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1784, "kind": "verified_stmt", "sql": "DEALLOCATE PREPARE a"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1793, "kind": "verified_stmt", "sql": "DEALLOCATE PREPARE ALL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1805, "kind": "verified_stmt", "sql": "EXECUTE a"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1820, "kind": "verified_stmt", "sql": "EXECUTE a(1, 't')"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1839, "kind": "verified_stmt", "sql": "EXECUTE a USING CAST(1337 AS SMALLINT), CAST(7331 AS SMALLINT)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1883, "kind": "verified_stmt", "sql": "PREPARE a AS INSERT INTO customers VALUES (a1, a2, a3)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1924, "kind": "verified_stmt", "sql": "PREPARE a (INT, TEXT) AS SELECT * FROM customers WHERE customers.id = a1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1949, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname)         VALUES (5, 'Gizmo Transglobal'), (6, 'Associated Computing, Inc')         ON CONFLICT(did)         DO UPDATE SET dname = EXCLUDED.dname"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1981, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname, area)         VALUES (5, 'Gizmo Transglobal', 'Mars'), (6, 'Associated Computing, Inc', 'Venus')         ON CONFLICT(did, area)         DO UPDATE SET dname = EXCLUDED.dname, area = EXCLUDED.area"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2024, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname)     VALUES (5, 'Gizmo Transglobal'), (6, 'Associated Computing, Inc')     ON CONFLICT DO NOTHING"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2043, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname, dsize)         VALUES (5, 'Gizmo Transglobal', 1000), (6, 'Associated Computing, Inc', 1010)         ON CONFLICT(did)         DO UPDATE SET dname = $1 WHERE dsize > $2"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2087, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname, dsize)         VALUES (5, 'Gizmo Transglobal', 1000), (6, 'Associated Computing, Inc', 1010)         ON CONFLICT ON CONSTRAINT distributors_did_pkey         DO UPDATE SET dname = $1 WHERE dsize > $2"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2137, "kind": "verified_stmt", "sql": "INSERT INTO distributors (did, dname) VALUES (DEFAULT, 'XYZ Widgets') RETURNING did"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2152, "kind": "verified_stmt", "sql": "UPDATE weather SET temp_lo = temp_lo + 1, temp_hi = temp_lo + 15, prcp = DEFAULT              WHERE city = 'San Francisco' AND date = '2003-07-03'              RETURNING temp_lo AS lo, temp_hi AS hi, prcp"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2177, "kind": "verified_stmt", "sql": "DELETE FROM tasks WHERE status = 'DONE' RETURNING *"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 2989, "kind": "verified_stmt", "sql": "CREATE TABLE child_table (child_column INT) INHERITS (public.parent_table)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3000, "kind": "verified_stmt", "sql": "CREATE TABLE child_table (child_column INT) INHERITS (public.parent_table, pg_catalog.pg_settings)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3285, "kind": "verified_stmt", "sql": "SET TRANSACTION SNAPSHOT '000003A1-1'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3294, "kind": "verified_stmt", "sql": "SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY, READ WRITE, ISOLATION LEVEL SERIALIZABLE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3730, "kind": "verified_stmt", "sql": "SELECT \"quoted \"\" ident\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3735, "kind": "verified_stmt", "sql": "SELECT \"\"\"quoted ident\"\"\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3740, "kind": "verified_stmt", "sql": "CREATE LOCAL TEMPORARY TABLE table (COL INT)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3746, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE table (COL INT) ON COMMIT PRESERVE ROWS"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3748, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE table (COL INT) ON COMMIT DELETE ROWS"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3750, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE table (COL INT) ON COMMIT DROP"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3860, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" CURSOR WITH HOLD FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3862, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" CURSOR WITHOUT HOLD FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3863, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" BINARY CURSOR FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3865, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" ASENSITIVE CURSOR FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3867, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" INSENSITIVE CURSOR FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3868, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" SCROLL CURSOR FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3870, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" NO SCROLL CURSOR FOR SELECT 1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3871, "kind": "verified_stmt", "sql": "DECLARE \"SQL_CUR0x7fa44801bc00\" BINARY INSENSITIVE SCROLL CURSOR WITH HOLD FOR SELECT * FROM table_name LIMIT 2222"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3934, "kind": "verified_stmt", "sql": "FETCH 2048 IN \"SQL_CUR0x7fa44801bc00\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3935, "kind": "verified_stmt", "sql": "FETCH 2048 IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3936, "kind": "verified_stmt", "sql": "FETCH NEXT IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3937, "kind": "verified_stmt", "sql": "FETCH PRIOR IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3938, "kind": "verified_stmt", "sql": "FETCH FIRST IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3939, "kind": "verified_stmt", "sql": "FETCH LAST IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3941, "kind": "verified_stmt", "sql": "FETCH ABSOLUTE 2048 IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3943, "kind": "verified_stmt", "sql": "FETCH RELATIVE 2048 IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3944, "kind": "verified_stmt", "sql": "FETCH ALL IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3947, "kind": "verified_stmt", "sql": "FETCH FORWARD 2048 IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3949, "kind": "verified_stmt", "sql": "FETCH FORWARD ALL IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3951, "kind": "verified_stmt", "sql": "FETCH BACKWARD 2048 IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 3953, "kind": "verified_stmt", "sql": "FETCH BACKWARD ALL IN \"SQL_CUR0x7fa44801bc00\" INTO \"new_table\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4390, "kind": "verified_stmt", "sql": "CREATE TABLE \"foo\" (\"bar\" \"int\")"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4391, "kind": "verified_stmt", "sql": "ALTER TABLE foo ADD CONSTRAINT \"bar\" PRIMARY KEY (baz)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4392, "kind": "verified_stmt", "sql": "UPDATE foo SET \"bar\" = 5"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4412, "kind": "verified_stmt", "sql": "WITH \"result\" AS (UPDATE \"Hero\" SET \"name\" = 'Captain America', \"number_of_movies\" = \"number_of_movies\" + 1 WHERE \"secret_identity\" = 'Sam Wilson' RETURNING \"id\", \"name\", \"secret_identity\", \"number_of_movies\") SELECT * FROM \"result\""}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4428, "kind": "verified_stmt", "sql": "CREATE DOMAIN my_domain AS INTEGER CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4475, "kind": "verified_stmt", "sql": "CREATE DOMAIN my_domain AS INTEGER COLLATE \"en_US\" CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4518, "kind": "verified_stmt", "sql": "CREATE DOMAIN my_domain AS INTEGER DEFAULT 1 CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4565, "kind": "verified_stmt", "sql": "CREATE DOMAIN my_domain AS INTEGER COLLATE \"en_US\" DEFAULT 1 CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4608, "kind": "verified_stmt", "sql": "CREATE DOMAIN my_domain AS INTEGER CONSTRAINT my_constraint CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4688, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION add(a INTEGER, IN b INTEGER = 1) RETURNS INTEGER LANGUAGE SQL IMMUTABLE PARALLEL RESTRICTED RETURN a + b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4689, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION add(a INTEGER, IN b INTEGER = 1) RETURNS INTEGER LANGUAGE SQL IMMUTABLE RETURNS NULL ON NULL INPUT PARALLEL RESTRICTED RETURN a + b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4690, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION add(a INTEGER, IN b INTEGER = 1) RETURNS INTEGER LANGUAGE SQL STABLE PARALLEL UNSAFE RETURN a + b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4691, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION add(a INTEGER, IN b INTEGER = 1) RETURNS INTEGER LANGUAGE SQL STABLE CALLED ON NULL INPUT PARALLEL UNSAFE RETURN a + b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4692, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION increment(i INTEGER) RETURNS INTEGER LANGUAGE plpgsql AS $$ BEGIN RETURN i + 1; END; $$"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4693, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION no_arg() RETURNS VOID LANGUAGE plpgsql AS $$ BEGIN DELETE FROM my_table; END; $$"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4694, "kind": "verified_stmt", "sql": "CREATE OR REPLACE FUNCTION return_table(i INTEGER) RETURNS TABLE(id UUID, is_active BOOLEAN) LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY SELECT NULL::UUID, NULL::BOOLEAN; END; $$"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4703, "kind": "verified_stmt", "sql": "CREATE FUNCTION get_users() RETURNS SETOF TEXT LANGUAGE sql AS 'SELECT name FROM users'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4706, "kind": "verified_stmt", "sql": "CREATE FUNCTION get_ids() RETURNS SETOF INTEGER LANGUAGE sql AS 'SELECT id FROM users'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4709, "kind": "verified_stmt", "sql": "CREATE FUNCTION get_all() RETURNS SETOF my_schema.\"MyType\" LANGUAGE sql AS 'SELECT * FROM t'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4712, "kind": "verified_stmt", "sql": "CREATE FUNCTION get_rows() RETURNS SETOF RECORD LANGUAGE sql AS 'SELECT * FROM t'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5257, "kind": "verified_stmt", "sql": "TRUNCATE db.table_name"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5281, "kind": "verified_stmt", "sql": "TRUNCATE TABLE ONLY db.table_name RESTART IDENTITY CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5306, "kind": "verified_stmt", "sql": "TRUNCATE TABLE db.table_name, db.other_table_name RESTART IDENTITY CASCADE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5342, "kind": "verified_stmt", "sql": "TRUNCATE TABLE t *"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5364, "kind": "verified_stmt", "sql": "TRUNCATE TABLE ONLY parent, child *, grandchild RESTART IDENTITY"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5866, "kind": "verified_stmt", "sql": "CREATE TABLE t (i INTERVAL)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5868, "kind": "verified_stmt", "sql": "CREATE TABLE t (i INTERVAL({p}))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5869, "kind": "verified_stmt", "sql": "SELECT '1 second'::INTERVAL({p})"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5870, "kind": "verified_stmt", "sql": "SELECT CAST('1 second' AS INTERVAL({p}))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5888, "kind": "verified_stmt", "sql": "CREATE TABLE t (i INTERVAL {field})"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5889, "kind": "verified_stmt", "sql": "SELECT '1 second'::INTERVAL {field}"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5890, "kind": "verified_stmt", "sql": "SELECT CAST('1 second' AS INTERVAL {field})"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5894, "kind": "verified_stmt", "sql": "CREATE TABLE t (i INTERVAL {field}({p}))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5895, "kind": "verified_stmt", "sql": "SELECT '1 second'::INTERVAL {field}({p})"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5897, "kind": "verified_stmt", "sql": "SELECT CAST('1 second' AS INTERVAL {field}({p}))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 5904, "kind": "verified_stmt", "sql": "SELECT MAX(interval) FROM tbl"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6803, "kind": "verified_stmt", "sql": "CREATE TABLE foo (x VARBIT, y VARBIT(42))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6827, "kind": "verified_stmt", "sql": "ALTER TABLE foo REPLICA IDENTITY FULL"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6839, "kind": "verified_stmt", "sql": "ALTER TABLE foo REPLICA IDENTITY USING INDEX foo_idx"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6851, "kind": "verified_stmt", "sql": "ALTER TABLE foo REPLICA IDENTITY NOTHING"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6863, "kind": "verified_stmt", "sql": "ALTER TABLE foo REPLICA IDENTITY DEFAULT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6878, "kind": "verified_stmt", "sql": "CREATE TABLE foo (x TSVECTOR)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6892, "kind": "verified_stmt", "sql": "CREATE TABLE foo (x TSQUERY)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6909, "kind": "verified_stmt", "sql": "ALTER TABLE foo ADD CONSTRAINT bar FOREIGN KEY (baz) REFERENCES other(ref) NOT VALID"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 6938, "kind": "verified_stmt", "sql": "ALTER TABLE foo VALIDATE CONSTRAINT bar"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 7031, "kind": "verified_stmt", "sql": "ALTER SCHEMA foo RENAME TO bar"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 7157, "kind": "verified_stmt", "sql": "CREATE OPERATOR {op_symbol} (FUNCTION = f)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 7188, "kind": "verified_stmt", "sql": "CREATE OPERATOR {name} (FUNCTION = f)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8193, "kind": "verified_stmt", "sql": "CREATE OPERATOR FAMILY my_family USING {index_method}"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8202, "kind": "verified_stmt", "sql": "CREATE OPERATOR FAMILY myschema.test_family USING {index_method}"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8258, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS CAS_btree_ops DEFAULT FOR TYPE CAS USING btree FAMILY CAS_btree_ops AS OPERATOR 1 <, OPERATOR 2 <=, OPERATOR 3 =, OPERATOR 4 >=, OPERATOR 5 >, FUNCTION 1 cas_cmp(CAS, CAS)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8277, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING gist AS OPERATOR 1 < (INT4, INT4)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8302, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING gist AS OPERATOR 1 < FOR SEARCH"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8323, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING gist AS OPERATOR 2 <<-> FOR ORDER BY float_ops"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8346, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING btree AS FUNCTION 1 (INT4, INT4) btcmp(INT4, INT4)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8373, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING btree AS FUNCTION 1 my_func"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8398, "kind": "verified_stmt", "sql": "CREATE OPERATOR CLASS gist_ops FOR TYPE geometry USING gist AS OPERATOR 1 <<, FUNCTION 1 gist_consistent(internal, geometry, INT4), STORAGE box"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8712, "kind": "verified_stmt", "sql": "ANALYZE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8715, "kind": "verified_stmt", "sql": "ANALYZE t"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8718, "kind": "verified_stmt", "sql": "ANALYZE t (col1, col2)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8745, "kind": "verified_stmt", "sql": "LOCK TABLE ONLY public.widgets, analytics.events * IN SHARE ROW EXCLUSIVE MODE NOWAIT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8779, "kind": "verified_stmt", "sql": "LOCK TABLE public.widgets IN {mode_sql} MODE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1941, "kind": "verified_query", "sql": "SELECT * FROM customers WHERE customers.id = a1"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 38, "kind": "one_statement_parses_to", "sql": "CREATE TABLE p PARTITION OF parent FOR VALUES FROM (1) TO ()"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 233, "kind": "one_statement_parses_to", "sql": "CREATE DOMAIN my_domain AS INTEGER CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 236, "kind": "one_statement_parses_to", "sql": "CREATE DOMAIN my_domain AS INTEGER COLLATE \"en_US\" CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 239, "kind": "one_statement_parses_to", "sql": "CREATE DOMAIN my_domain AS INTEGER DEFAULT 1 CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 242, "kind": "one_statement_parses_to", "sql": "CREATE DOMAIN my_domain AS INTEGER COLLATE \"en_US\" DEFAULT 1 CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 274, "kind": "one_statement_parses_to", "sql": "CREATE DOMAIN my_domain AS INTEGER CONSTRAINT my_constraint CHECK (VALUE > 0)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 282, "kind": "one_statement_parses_to", "sql": "DROP SEQUENCE  name1 RESTRICT"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 292, "kind": "one_statement_parses_to", "sql": "DROP SEQUENCE  name1, name2, name3"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 302, "kind": "one_statement_parses_to", "sql": "CREATE SEQUENCE name5\n    AS BIGINT\n    INCREMENT   +10\n    MINVALUE + 30  MAXVALUE +5000\n    START WITH +   45"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1657, "kind": "one_statement_parses_to", "sql": "SET hive.tez.auto.reducer.parallelism=false"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 1677, "kind": "one_statement_parses_to", "sql": "SET a TO b"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4397, "kind": "one_statement_parses_to", "sql": "UPDATE test SET name=$1,\n                value=$2,\n                where=$3,\n                create=$4,\n                is_default=$5,\n                classification=$6,\n                sort=$7\n                WHERE id=$8"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4695, "kind": "one_statement_parses_to", "sql": "CREATE FUNCTION add(INTEGER, INTEGER DEFAULT 1) RETURNS INTEGER AS 'select $1 + $2;'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 4828, "kind": "one_statement_parses_to", "sql": "CREATE FUNCTION cas_in(input cstring) RETURNS cas IMMUTABLE PARALLEL SAFE LANGUAGE c AS 'MODULE_PATHNAME', 'cas_in_wrapper'"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 7169, "kind": "one_statement_parses_to", "sql": "CREATE OPERATOR != (FUNCTION = func)"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 7197, "kind": "one_statement_parses_to", "sql": "CREATE OPERATOR + (FUNCTION = f, COMMUTATOR = OPERATOR(>), NEGATOR = OPERATOR(>=))"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8369, "kind": "one_statement_parses_to", "sql": "CREATE OPERATOR CLASS test_ops FOR TYPE INT4 USING btree AS FUNCTION 1 my_func()"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8736, "kind": "one_statement_parses_to", "sql": "LOCK public.widgets IN EXCLUSIVE MODE"}
+{"dialect": "postgres", "source_file": "sqlparser_postgres.rs", "line": 8740, "kind": "one_statement_parses_to", "sql": "LOCK TABLE public.widgets NOWAIT"}

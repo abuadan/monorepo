@@ -1,0 +1,50 @@
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 43, "kind": "verified_only_select", "sql": "SELECT `Ã`"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 50, "kind": "verified_only_select", "sql": "SELECT \"Ä\""}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 306, "kind": "verified_only_select", "sql": "SELECT STRUCT(1, 'foo')"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 318, "kind": "verified_only_select", "sql": "SELECT STRUCT(1 AS one, 'foo' AS foo, false)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 388, "kind": "verified_only_select", "sql": "SELECT 1 FROM t1 TIMESTAMP AS OF '2018-10-18T22:15:12.013Z'"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 390, "kind": "verified_only_select", "sql": "SELECT 1 FROM t1 TIMESTAMP AS OF CURRENT_TIMESTAMP() - INTERVAL 12 HOURS"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 395, "kind": "verified_only_select", "sql": "SELECT 1 FROM t1 VERSION AS OF 1"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 607, "kind": "verified_only_select", "sql": "SELECT raw:owner, RAW:owner FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 610, "kind": "verified_only_select", "sql": "SELECT raw:OWNER AS case_insensitive, raw:['OWNER'] AS case_sensitive FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 621, "kind": "verified_only_select", "sql": "SELECT raw:store.bicycle FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 625, "kind": "verified_only_select", "sql": "SELECT raw:store['bicycle'], raw:store['BICYCLE'] FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 629, "kind": "verified_only_select", "sql": "SELECT raw:store.fruit[0], raw:store.fruit[1] FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 632, "kind": "verified_only_select", "sql": "SELECT raw:store.basket[*], raw:store.basket[*][0] AS first_of_baskets,          raw:store.basket[0][*] AS first_basket, raw:store.basket[*][*] AS all_elements_flattened,          raw:store.basket[0][2].b AS subfield FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 639, "kind": "verified_only_select", "sql": "SELECT raw:store.book[*].isbn FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 232, "kind": "verified_stmt", "sql": "USE {object_name}"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 240, "kind": "verified_stmt", "sql": "USE {quote}{object_name}{quote}"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 252, "kind": "verified_stmt", "sql": "USE CATALOG {quote}my_catalog{quote}"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 259, "kind": "verified_stmt", "sql": "USE DATABASE {quote}my_database{quote}"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 266, "kind": "verified_stmt", "sql": "USE SCHEMA {quote}my_schema{quote}"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 276, "kind": "verified_stmt", "sql": "USE CATALOG my_catalog"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 282, "kind": "verified_stmt", "sql": "USE DATABASE my_schema"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 288, "kind": "verified_stmt", "sql": "USE SCHEMA my_schema"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 370, "kind": "verified_stmt", "sql": "CREATE TABLE foo (x TIMESTAMP_NTZ)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 409, "kind": "verified_stmt", "sql": "OPTIMIZE my_table"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 410, "kind": "verified_stmt", "sql": "OPTIMIZE db.my_table"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 411, "kind": "verified_stmt", "sql": "OPTIMIZE catalog.db.my_table"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 414, "kind": "verified_stmt", "sql": "OPTIMIZE my_table WHERE date = '2023-01-01'"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 416, "kind": "verified_stmt", "sql": "OPTIMIZE my_table WHERE date >= '2023-01-01' AND date < '2023-02-01'"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 419, "kind": "verified_stmt", "sql": "OPTIMIZE my_table ZORDER BY (col1)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 420, "kind": "verified_stmt", "sql": "OPTIMIZE my_table ZORDER BY (col1, col2)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 421, "kind": "verified_stmt", "sql": "OPTIMIZE my_table ZORDER BY (col1, col2, col3)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 424, "kind": "verified_stmt", "sql": "OPTIMIZE my_table WHERE date = '2023-01-01' ZORDER BY (col1)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 426, "kind": "verified_stmt", "sql": "OPTIMIZE my_table WHERE date >= '2023-01-01' ZORDER BY (col1, col2)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 430, "kind": "verified_stmt", "sql": "OPTIMIZE my_table WHERE date = '2023-01-01' ZORDER BY (col1, col2)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 481, "kind": "verified_stmt", "sql": "CREATE TABLE t (col1 STRING, col2 INT) PARTITIONED BY (col1)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 484, "kind": "verified_stmt", "sql": "CREATE TABLE t (col1 STRING, col2 INT, col3 DATE) PARTITIONED BY (col1, col2)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 489, "kind": "verified_stmt", "sql": "CREATE TABLE t (name STRING) PARTITIONED BY (year INT, month INT)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 493, "kind": "verified_stmt", "sql": "CREATE TABLE t (id INT, name STRING) PARTITIONED BY (region, year INT)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 496, "kind": "verified_stmt", "sql": "CREATE TABLE t (col1 STRING) PARTITIONED BY (col1)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 521, "kind": "verified_stmt", "sql": "CREATE TABLE t (name STRING) PARTITIONED BY (year INT)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 573, "kind": "verified_stmt", "sql": "CREATE TABLE t (col1 STRUCT<field1 STRING, field2 INT>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 188, "kind": "verified_query", "sql": "VALUES (\"one\", 1), ('two', 2)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 221, "kind": "verified_query", "sql": "VALUES 1, 2, 3"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 543, "kind": "one_statement_parses_to", "sql": "CREATE TABLE t (col1 STRUCT<field1: STRING, field2: INT>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 549, "kind": "one_statement_parses_to", "sql": "CREATE TABLE t (col1 ARRAY<STRUCT<finish_flag: STRING, survive_flag: STRING, score: INT>>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 555, "kind": "one_statement_parses_to", "sql": "CREATE TABLE t (col1 STRUCT<a: INT, b: STRING>, col2 STRUCT<x: DOUBLE>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 561, "kind": "one_statement_parses_to", "sql": "CREATE TABLE t (col1 STRUCT<outer: STRUCT<inner: STRING>>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 567, "kind": "one_statement_parses_to", "sql": "CREATE TABLE t (col1 STRUCT<items: ARRAY<INT>, name: STRING>)"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 615, "kind": "one_statement_parses_to", "sql": "SELECT raw:`zip code`, raw:`Zip Code`, raw:['fb:testid'] FROM store_data"}
+{"dialect": "databricks", "source_file": "sqlparser_databricks.rs", "line": 642, "kind": "one_statement_parses_to", "sql": "SELECT raw:store.bicycle.price::double FROM store_data"}

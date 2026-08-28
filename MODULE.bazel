@@ -7,7 +7,6 @@
 module(
     name = "monorepo",
     version = "0.0.0",
-    compatibility_level = 1,
 )
 
 bazel_dep(name = "bazel_features", version = "1.38.0")
@@ -29,7 +28,7 @@ bazel_dep(name = "protobuf", version = "34.0.bcr.1")
 bazel_dep(name = "rules_buf", version = "0.5.2")
 
 # bazel_dep(name = "protobuf", version = "33.1")
-bazel_dep(name = "rules_rust", version = "0.67.0")
+bazel_dep(name = "rules_rust", version = "0.70.0")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "rules_swift", version = "3.4.0")
 bazel_dep(name = "rules_swift_package_manager", version = "1.11.0")
@@ -67,6 +66,7 @@ bazel_dep(name = "rules_python_gazelle_plugin", version = "1.7.0-rc4")
 
 # bazel_dep(name = "gazelle", version = "0.47.0", repo_name = "bazel_gazelle")
 bazel_dep(name = "gazelle", version = "0.47.0")
+bazel_dep(name = "gazelle_rust", version = "0.1.0")
 
 bazel_dep(name = "stardoc", version = "0.8.0", dev_dependency = True, repo_name = "io_bazel_stardoc")
 bazel_dep(name = "rules_bazel_integration_test", version = "0.34.0", dev_dependency = True)
@@ -234,12 +234,37 @@ pip.parse(
     python_version = "3.13",
     requirements_lock = "//python:requirements.lock",
     whl_modifications = {
-        "pygraphviz": "//bazel/tools/third_party:pygraphviz",
+        "@pip_whl_mods//:pygraphviz.json": "pygraphviz",
     },
+)
+pip.whl_mods(
+    additive_build_content = """
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "_graphviz_so",
+    srcs = ["site-packages/pygraphviz/graphviz_wrap.c"],
+    copts = ["-Wno-error", "-Isite-packages/pygraphviz"],
+    linkopts = ["-undefined", "dynamic_lookup"],
+    linkshared = True,
+    deps = [
+        "@@+http_archive+graphviz//:graphviz",
+        "@@+http_archive+graphviz//:graphviz_public_headers",
+        "@rules_python//python/cc:current_py_cc_headers",
+    ],
+)
+""",
+    copy_files = {
+        ":_graphviz_so": "site-packages/pygraphviz/_graphviz.cpython-313-darwin.so",
+    },
+    data = [":_graphviz_so"],
+    data_exclude_glob = ["site-packages/pygraphviz/_graphviz*.so"],
+    hub_name = "pip_whl_mods",
+    whl_name = "pygraphviz",
 )
 
 # Same as WORKSPACE install_deps() - actually install the python deps.
-use_repo(pip, "pip")
+use_repo(pip, "pip", "pip_whl_mods")
 
 ################################################################################
 # rules_jvm
@@ -305,36 +330,37 @@ use_repo(rules_ts_ext, "npm_typescript")
 # rules_rust
 ################################################################################
 
-GAZELLE_RUST_COMMIT = "aef7695c4a9b6c3e32255ed48570e62199f52537"
+# GAZELLE_RUST_COMMIT = "aef7695c4a9b6c3e32255ed48570e62199f52537"
 
-GAZELLE_RUST_SHA256 = None
+# GAZELLE_RUST_SHA256 = None
 
-http_archive(
-    name = "gazelle_rust",
-    sha256 = GAZELLE_RUST_SHA256,
-    strip_prefix = "gazelle_rust-{}".format(GAZELLE_RUST_COMMIT),
-    url = "https://github.com/Calsign/gazelle_rust/archive/{}.zip".format(GAZELLE_RUST_COMMIT),
-)
+# http_archive(
+#     name = "gazelle_rust",
+#     sha256 = GAZELLE_RUST_SHA256,
+#     strip_prefix = "gazelle_rust-{}".format(GAZELLE_RUST_COMMIT),
+#     url = "https://github.com/Calsign/gazelle_rust/archive/{}.zip".format(GAZELLE_RUST_COMMIT),
+# )
 
 rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 rust.toolchain(
-    edition = "2021",
-    versions = ["1.77.2"],
+    edition = "2024",
+    versions = ["1.85.0"],
 )
 use_repo(rust, "rust_toolchains")
 
 register_toolchains("@rust_toolchains//:all")
 
-crate = use_extension(
-    "@rules_rust//crate_universe:extension.bzl",
-    "crate",
-)
+crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+
+# crate = use_extension(
+#     "@rules_rust//crate_universe:extension.bzl",
+#     "crate",
+# )
 crate.from_cargo(
     name = "crates",
     cargo_lockfile = "//rust:Cargo.lock",
     manifests = [
         "//rust:Cargo.toml",
-        "//rust:sqlinguist/Cargo.toml",
     ],
 )
 use_repo(crate, "crates")
@@ -484,5 +510,13 @@ single_version_override(
     patch_strip = 1,
     patches = [
         "//bazel/patches:rules_cc-publicize_unix_cc_toolchain_config.patch",
+    ],
+)
+
+single_version_override(
+    module_name = "libexpat",
+    patch_strip = 0,
+    patches = [
+        "//bazel/patches:libexpat-rules_cc.patch",
     ],
 )

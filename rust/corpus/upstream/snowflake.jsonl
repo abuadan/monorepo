@@ -1,0 +1,292 @@
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1273, "kind": "verified_only_select", "sql": "SELECT CONNECT_BY_ROOT FROM Tbl2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1288, "kind": "verified_only_select", "sql": "SELECT * FROM TABLE(FLATTEN(input => parse_json('{\"a\":1, \"b\":[77,88]}'), outer => true)) AS f"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1289, "kind": "verified_only_select", "sql": "SELECT emp.employee_ID, emp.last_name, index, value AS project_name FROM employees AS emp, LATERAL FLATTEN(INPUT => emp.project_names) AS proj_names"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1404, "kind": "verified_only_select", "sql": "SELECT \"alias\".\"bar baz\", \"myfun\"(), \"simple id\" AS \"column alias\" FROM \"a table\" AS \"alias\""}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1501, "kind": "verified_only_select", "sql": "SELECT * EXCLUDE (col_a) FROM data"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1511, "kind": "verified_only_select", "sql": "SELECT name.* EXCLUDE department_id FROM employee_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1524, "kind": "verified_only_select", "sql": "SELECT * EXCLUDE (department_id, employee_id) FROM employee_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1538, "kind": "verified_only_select", "sql": "SELECT * RENAME col_a AS col_b FROM data"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1548, "kind": "verified_only_select", "sql": "SELECT name.* RENAME (department_id AS new_dep, employee_id AS new_emp) FROM employee_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1572, "kind": "verified_only_select", "sql": "SELECT * REPLACE (col_z || col_z AS col_z) RENAME (col_z AS col_zz) FROM data"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1611, "kind": "verified_only_select", "sql": "SELECT * EXCLUDE col_z RENAME col_a AS col_b FROM data"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2702, "kind": "verified_only_select", "sql": "SELECT :1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2834, "kind": "verified_only_select", "sql": "SELECT t1.c1, t2.c2 FROM t1, t2 WHERE t1.c1 = t2.c2 (+)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2852, "kind": "verified_only_select", "sql": "SELECT t1.c1, t2.c2 FROM t1, t2 WHERE c1 = c2 (+)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2866, "kind": "verified_only_select", "sql": "SELECT t1.c1, t2.c2 FROM t1, t2 WHERE c1 = myudf(+42)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2896, "kind": "verified_only_select", "sql": "SELECT * ILIKE '%id%' FROM tbl"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2935, "kind": "verified_only_select", "sql": "SELECT FIRST_VALUE(column2 IGNORE NULLS) OVER (PARTITION BY column1 ORDER BY column2) FROM some_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3970, "kind": "verified_only_select", "sql": "SELECT * FROM tbl {kw}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3987, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3992, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT 1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3993, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT $1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3994, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT ''"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3995, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT NULL"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3996, "kind": "verified_only_select", "sql": "SELECT * FROM tbl LIMIT $$$$"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4017, "kind": "verified_only_select", "sql": "SELECT * FROM tbl AT(TIMESTAMP => '2024-12-15 00:00:00')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4019, "kind": "verified_only_select", "sql": "SELECT * FROM tbl BEFORE(TIMESTAMP => '2024-12-15 00:00:00')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4771, "kind": "verified_only_select", "sql": "SELECT identifier('email') FROM customers"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4792, "kind": "verified_only_select", "sql": "SELECT identifier('\"Email\"') FROM customers"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4813, "kind": "verified_only_select", "sql": "SELECT identifier('alias1').* FROM tbl AS alias1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4959, "kind": "verified_only_select", "sql": "SELECT CAST('2024-01-01 01:00:00' AS TIMESTAMP_NTZ(9))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 39, "kind": "verified_stmt", "sql": "SELECT CONNECT_BY_ROOT FROM Tbl2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 210, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a number) WITH AGGREGATION POLICY policy_name"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 249, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a number, b number) WITH ROW ACCESS POLICY policy_name ON (a)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 292, "kind": "verified_stmt", "sql": "CREATE TABLE IF NOT EXISTS my_table (a NUMBER(38, 0), b VARIANT) WITH STORAGE LIFECYCLE POLICY dba.global_settings.my_policy ON (a)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 318, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a number) WITH TAG (A='TAG A', B='TAG B')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 411, "kind": "verified_stmt", "sql": "CREATE LOCAL TEMPORARY TABLE \"AAA\".\"foo\" (\"bar\" INTEGER) ON COMMIT PRESERVE ROWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 414, "kind": "verified_stmt", "sql": "CREATE TABLE \"AAA\".\"foo\" (\"bar\" INTEGER) ON COMMIT DELETE ROWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 415, "kind": "verified_stmt", "sql": "CREATE TABLE \"AAA\".\"foo\" (\"bar\" INTEGER) ON COMMIT DROP"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 420, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a INT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 428, "kind": "verified_stmt", "sql": "CREATE LOCAL TABLE my_table (a INT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 439, "kind": "verified_stmt", "sql": "CREATE GLOBAL TABLE my_table (a INT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 491, "kind": "verified_stmt", "sql": "CREATE TABLE IF NOT EXISTS my_table (a INT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 527, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a INT) CLUSTER BY (a, b, my_func(c))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 562, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a INT) COMMENT = 'some comment'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 714, "kind": "verified_stmt", "sql": "CREATE TABLE my_table (a TEXT COLLATE 'de_DE')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 961, "kind": "verified_stmt", "sql": "CREATE ICEBERG TABLE my_table (a INT, b INT)     CLUSTER BY (a, b) EXTERNAL_VOLUME='volume' CATALOG='SNOWFLAKE' BASE_LOCATION='relative/path' CATALOG_SYNC='OPEN_CATALOG'     STORAGE_SERIALIZATION_POLICY=COMPATIBLE COPY GRANTS CHANGE_TRACKING=TRUE DATA_RETENTION_TIME_IN_DAYS=5 MAX_DATA_EXTENSION_TIME_IN_DAYS=10     WITH AGGREGATION POLICY policy_name WITH ROW ACCESS POLICY policy_name ON (a) WITH TAG (A='TAG A', B='TAG B')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1011, "kind": "verified_stmt", "sql": "CREATE ICEBERG TABLE my_table (a INT) BASE_LOCATION='relative_path'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1039, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE dst ON COMMIT PRESERVE ROWS AS (SELECT * FROM src)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1047, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE dst LIKE src ON COMMIT PRESERVE ROWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1052, "kind": "verified_stmt", "sql": "CREATE TEMPORARY TABLE dst CLONE src ON COMMIT PRESERVE ROWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1124, "kind": "verified_stmt", "sql": "CREATE OR REPLACE DYNAMIC TABLE my_dynamic_table TARGET_LAG='20 minutes' WAREHOUSE=mywh AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1125, "kind": "verified_stmt", "sql": "CREATE DYNAMIC ICEBERG TABLE my_dynamic_table (date TIMESTAMP_NTZ, id NUMBER, content STRING) EXTERNAL_VOLUME='my_external_volume' CATALOG='SNOWFLAKE' BASE_LOCATION='my_iceberg_table' TARGET_LAG='20 minutes' WAREHOUSE=mywh AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1135, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_dynamic_table (date TIMESTAMP_NTZ, id NUMBER, content VARIANT) CLUSTER BY (date, id) TARGET_LAG='20 minutes' WAREHOUSE=mywh AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1143, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_cloned_dynamic_table CLONE my_dynamic_table AT(TIMESTAMP => TO_TIMESTAMP_TZ('04/05/2013 01:02:03', 'mm/dd/yyyy hh24:mi:ss'))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1149, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_cloned_dynamic_table CLONE my_dynamic_table BEFORE(OFFSET => TO_TIMESTAMP_TZ('04/05/2013 01:02:03', 'mm/dd/yyyy hh24:mi:ss'))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1155, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_dynamic_table TARGET_LAG='DOWNSTREAM' WAREHOUSE=mywh INITIALIZE=ON_SCHEDULE REQUIRE USER AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1164, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_dynamic_table TARGET_LAG='DOWNSTREAM' WAREHOUSE=mywh REFRESH_MODE=AUTO INITIALIZE=ON_SCHEDULE REQUIRE USER AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1174, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_dynamic_table TARGET_LAG='DOWNSTREAM' WAREHOUSE=mywh REFRESH_MODE=FULL INITIALIZE=ON_SCHEDULE REQUIRE USER AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1184, "kind": "verified_stmt", "sql": "CREATE DYNAMIC TABLE my_dynamic_table TARGET_LAG='DOWNSTREAM' WAREHOUSE=mywh REFRESH_MODE=INCREMENTAL INITIALIZE=ON_SCHEDULE REQUIRE USER AS SELECT product_id, product_name FROM staging_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1462, "kind": "verified_stmt", "sql": "CREATE TABLE \"foo\" (\"bar\" \"int\")"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1463, "kind": "verified_stmt", "sql": "ALTER TABLE foo ADD CONSTRAINT \"bar\" PRIMARY KEY (baz)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1678, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP CLUSTERING KEY"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1679, "kind": "verified_stmt", "sql": "ALTER TABLE tbl SUSPEND RECLUSTER"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1680, "kind": "verified_stmt", "sql": "ALTER TABLE tbl RESUME RECLUSTER"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1685, "kind": "verified_stmt", "sql": "ALTER ICEBERG TABLE tbl DROP CLUSTERING KEY"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1686, "kind": "verified_stmt", "sql": "ALTER ICEBERG TABLE tbl SUSPEND RECLUSTER"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1687, "kind": "verified_stmt", "sql": "ALTER ICEBERG TABLE tbl RESUME RECLUSTER"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1692, "kind": "verified_stmt", "sql": "DROP STAGE s1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1701, "kind": "verified_stmt", "sql": "DROP STAGE IF EXISTS s1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1999, "kind": "verified_stmt", "sql": "CREATE OR REPLACE TEMPORARY STAGE IF NOT EXISTS s1.s2 COMMENT='some-comment'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2684, "kind": "verified_stmt", "sql": "SELECT * FROM @stage/day=18/23.parquet"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2687, "kind": "verified_stmt", "sql": "SELECT * FROM @stage/0:18:23/23.parquet"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2690, "kind": "verified_stmt", "sql": "COPY INTO my_table FROM @stage/day=18/file.parquet"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2693, "kind": "verified_stmt", "sql": "COPY INTO my_table FROM @stage/0:18:23/file.parquet"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2699, "kind": "verified_stmt", "sql": "SELECT customer_id, TRIM(sub_items.value:item_price_id, '\"', \"a\") AS item_price_id FROM models_staging.subscriptions"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2742, "kind": "verified_stmt", "sql": "SELECT position FROM tbl1 WHERE position NOT IN ('first', 'last')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2749, "kind": "verified_stmt", "sql": "SELECT parse_json(SELECT '{}')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2753, "kind": "verified_stmt", "sql": "SELECT parse_json(WITH q AS (SELECT '{}' AS foo) SELECT foo FROM q)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2757, "kind": "verified_stmt", "sql": "SELECT func(SELECT 1, 2)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2775, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT place_id, weekday, open FROM times AS p) PIVOT(max(open) FOR weekday IN (0, 1, 2, 3, 4, 5, 6)) AS p (place_id, open_sun, open_mon, open_tue, open_wed, open_thu, open_fri, open_sat)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3085, "kind": "verified_stmt", "sql": "DESCRIBE test.table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3086, "kind": "verified_stmt", "sql": "DESCRIBE TABLE test.table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3091, "kind": "verified_stmt", "sql": "DESC test.table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3092, "kind": "verified_stmt", "sql": "DESC TABLE test.table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3097, "kind": "verified_stmt", "sql": "EXPLAIN TABLE test_identifier"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3120, "kind": "verified_stmt", "sql": "USE {object_name}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3128, "kind": "verified_stmt", "sql": "USE {quote}{object_name}{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3140, "kind": "verified_stmt", "sql": "USE {quote}CATALOG{quote}.{quote}my_schema{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3151, "kind": "verified_stmt", "sql": "USE mydb.my_schema"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3161, "kind": "verified_stmt", "sql": "USE DATABASE {quote}my_database{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3168, "kind": "verified_stmt", "sql": "USE SCHEMA {quote}my_schema{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3175, "kind": "verified_stmt", "sql": "USE SCHEMA {quote}CATALOG{quote}.{quote}my_schema{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3184, "kind": "verified_stmt", "sql": "USE ROLE {quote}my_role{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3191, "kind": "verified_stmt", "sql": "USE WAREHOUSE {quote}my_wh{quote}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3208, "kind": "verified_stmt", "sql": "USE SECONDARY ROLES ALL"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3209, "kind": "verified_stmt", "sql": "USE SECONDARY ROLES NONE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3210, "kind": "verified_stmt", "sql": "USE SECONDARY ROLES r1, r2, r3"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3290, "kind": "verified_stmt", "sql": "SHOW DATABASES"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3291, "kind": "verified_stmt", "sql": "SHOW TERSE DATABASES"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3292, "kind": "verified_stmt", "sql": "SHOW DATABASES HISTORY"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3293, "kind": "verified_stmt", "sql": "SHOW DATABASES LIKE '%abc%'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3294, "kind": "verified_stmt", "sql": "SHOW DATABASES STARTS WITH 'demo_db'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3295, "kind": "verified_stmt", "sql": "SHOW DATABASES LIMIT 12"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3297, "kind": "verified_stmt", "sql": "SHOW DATABASES HISTORY LIKE '%aa' STARTS WITH 'demo' LIMIT 20 FROM 'abc'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3298, "kind": "verified_stmt", "sql": "SHOW DATABASES IN ACCOUNT abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3303, "kind": "verified_stmt", "sql": "SHOW SCHEMAS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3304, "kind": "verified_stmt", "sql": "SHOW TERSE SCHEMAS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3305, "kind": "verified_stmt", "sql": "SHOW SCHEMAS IN ACCOUNT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3306, "kind": "verified_stmt", "sql": "SHOW SCHEMAS IN ACCOUNT abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3307, "kind": "verified_stmt", "sql": "SHOW SCHEMAS IN DATABASE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3308, "kind": "verified_stmt", "sql": "SHOW SCHEMAS IN DATABASE xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3309, "kind": "verified_stmt", "sql": "SHOW SCHEMAS HISTORY LIKE '%xa%'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3310, "kind": "verified_stmt", "sql": "SHOW SCHEMAS STARTS WITH 'abc' LIMIT 20"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3311, "kind": "verified_stmt", "sql": "SHOW SCHEMAS IN DATABASE STARTS WITH 'abc' LIMIT 20 FROM 'xyz'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3316, "kind": "verified_stmt", "sql": "SHOW OBJECTS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3317, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3318, "kind": "verified_stmt", "sql": "SHOW OBJECTS LIKE '%test%' IN abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3319, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN ACCOUNT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3320, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN DATABASE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3321, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN DATABASE abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3322, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN SCHEMA"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3323, "kind": "verified_stmt", "sql": "SHOW OBJECTS IN SCHEMA abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3324, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3325, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS IN abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3326, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS LIKE '%test%' IN abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3327, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS LIKE '%test%' IN abc STARTS WITH 'b'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3328, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS LIKE '%test%' IN abc STARTS WITH 'b' LIMIT 10"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3330, "kind": "verified_stmt", "sql": "SHOW TERSE OBJECTS LIKE '%test%' IN abc STARTS WITH 'b' LIMIT 10 FROM 'x'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3357, "kind": "verified_stmt", "sql": "SHOW TABLES"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3358, "kind": "verified_stmt", "sql": "SHOW TERSE TABLES"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3359, "kind": "verified_stmt", "sql": "SHOW TABLES IN ACCOUNT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3360, "kind": "verified_stmt", "sql": "SHOW TABLES IN DATABASE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3361, "kind": "verified_stmt", "sql": "SHOW TABLES IN DATABASE xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3362, "kind": "verified_stmt", "sql": "SHOW TABLES IN SCHEMA"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3363, "kind": "verified_stmt", "sql": "SHOW TABLES IN SCHEMA xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3364, "kind": "verified_stmt", "sql": "SHOW TABLES HISTORY LIKE '%xa%'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3365, "kind": "verified_stmt", "sql": "SHOW TABLES STARTS WITH 'abc' LIMIT 20"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3366, "kind": "verified_stmt", "sql": "SHOW TABLES IN SCHEMA STARTS WITH 'abc' LIMIT 20 FROM 'xyz'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3367, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3368, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN ACCOUNT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3369, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN DATABASE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3370, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN DATABASE xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3371, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN SCHEMA"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3372, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN SCHEMA xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3373, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES STARTS WITH 'abc' LIMIT 20"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3375, "kind": "verified_stmt", "sql": "SHOW EXTERNAL TABLES IN SCHEMA STARTS WITH 'abc' LIMIT 20 FROM 'xyz'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3380, "kind": "verified_stmt", "sql": "SHOW VIEWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3381, "kind": "verified_stmt", "sql": "SHOW TERSE VIEWS"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3382, "kind": "verified_stmt", "sql": "SHOW VIEWS IN ACCOUNT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3383, "kind": "verified_stmt", "sql": "SHOW VIEWS IN DATABASE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3384, "kind": "verified_stmt", "sql": "SHOW VIEWS IN DATABASE xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3385, "kind": "verified_stmt", "sql": "SHOW VIEWS IN SCHEMA"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3386, "kind": "verified_stmt", "sql": "SHOW VIEWS IN SCHEMA xyz"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3387, "kind": "verified_stmt", "sql": "SHOW VIEWS STARTS WITH 'abc' LIMIT 20"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3388, "kind": "verified_stmt", "sql": "SHOW VIEWS IN SCHEMA STARTS WITH 'abc' LIMIT 20 FROM 'xyz'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3393, "kind": "verified_stmt", "sql": "SHOW COLUMNS IN TABLE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3394, "kind": "verified_stmt", "sql": "SHOW COLUMNS IN TABLE abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3395, "kind": "verified_stmt", "sql": "SHOW COLUMNS LIKE '%xyz%' IN TABLE abc"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3417, "kind": "verified_stmt", "sql": "SELECT * FROM db_name..table_name"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3418, "kind": "verified_stmt", "sql": "SELECT * FROM x, y..z JOIN a..b AS b ON x.id = b.id"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3450, "kind": "verified_stmt", "sql": "INSERT OVERWRITE INTO schema.table SELECT a FROM b"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3455, "kind": "verified_stmt", "sql": "SELECT * FROM testtable SAMPLE (10)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3456, "kind": "verified_stmt", "sql": "SELECT * FROM testtable TABLESAMPLE (10)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3458, "kind": "verified_stmt", "sql": "SELECT * FROM testtable AS t TABLESAMPLE BERNOULLI (10)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3459, "kind": "verified_stmt", "sql": "SELECT * FROM testtable AS t TABLESAMPLE ROW (10)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3460, "kind": "verified_stmt", "sql": "SELECT * FROM testtable AS t TABLESAMPLE ROW (10 ROWS)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3462, "kind": "verified_stmt", "sql": "SELECT * FROM testtable TABLESAMPLE BLOCK (3) SEED (82)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3464, "kind": "verified_stmt", "sql": "SELECT * FROM testtable TABLESAMPLE SYSTEM (3) REPEATABLE (82)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3465, "kind": "verified_stmt", "sql": "SELECT id FROM mytable TABLESAMPLE (10) REPEATABLE (1)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3466, "kind": "verified_stmt", "sql": "SELECT id FROM mytable TABLESAMPLE (10) SEED (1)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3472, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT * FROM mytable) SAMPLE (10)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3474, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT * FROM mytable) SAMPLE (10000 ROWS)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3476, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT * FROM mytable) AS t SAMPLE (50 PERCENT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3478, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT * FROM (SELECT report_from FROM mytable) SAMPLE (10000 ROWS)) AS anon_1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3483, "kind": "verified_stmt", "sql": "SELECT * FROM (SELECT * FROM mytable) SAMPLE (10) SEED (42)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3490, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3493, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 INTO t2 SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3496, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 (c1, c2, c3) SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3499, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 (c1, c2, c3) VALUES (n2, n1, DEFAULT) SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3504, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 INTO t1 (c1, c2, c3) VALUES (n2, n1, DEFAULT) INTO t2 (c1, c2, c3) INTO t2 VALUES (n3, n2, n1) SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3509, "kind": "verified_stmt", "sql": "INSERT OVERWRITE ALL INTO t1 INTO t2 SELECT n1, n2, n3 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3516, "kind": "verified_stmt", "sql": "INSERT ALL WHEN n1 > 100 THEN INTO t1 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3519, "kind": "verified_stmt", "sql": "INSERT ALL WHEN n1 > 100 THEN INTO t1 WHEN n1 > 10 THEN INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3524, "kind": "verified_stmt", "sql": "INSERT ALL WHEN n1 > 10 THEN INTO t1 INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3528, "kind": "verified_stmt", "sql": "INSERT ALL WHEN n1 > 100 THEN INTO t1 ELSE INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3531, "kind": "verified_stmt", "sql": "INSERT ALL WHEN n1 > 100 THEN INTO t1 WHEN n1 > 10 THEN INTO t1 INTO t2 ELSE INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3536, "kind": "verified_stmt", "sql": "INSERT FIRST WHEN n1 > 100 THEN INTO t1 WHEN n1 > 10 THEN INTO t1 INTO t2 ELSE INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3541, "kind": "verified_stmt", "sql": "INSERT OVERWRITE ALL WHEN n1 > 100 THEN INTO t1 ELSE INTO t2 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3546, "kind": "verified_stmt", "sql": "INSERT ALL WHEN 1 = 1 THEN INTO t1 SELECT n1 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3552, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 VALUES (n1, n2) SELECT n1, n2 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3555, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 (c1, c2, c3) VALUES (n1, n2, DEFAULT) SELECT n1, n2 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3560, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 (c1, c2, c3) VALUES (n1, NULL, n2) SELECT n1, n2 FROM src"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3565, "kind": "verified_stmt", "sql": "INSERT ALL INTO t1 VALUES ($1, $2) SELECT 1, 50 AS an_alias"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3813, "kind": "verified_stmt", "sql": "LIST @SNOWFLAKE_KAFKA_CONNECTOR_externalDataLakeSnowflakeConnector_STAGE_call_tracker_stream/"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3823, "kind": "verified_stmt", "sql": "REMOVE @my_csv_stage/analysis/ PATTERN='.*data_0.*'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3835, "kind": "verified_stmt", "sql": "LIST @\"STAGE_WITH_QUOTES\""}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3847, "kind": "verified_stmt", "sql": "SELECT 1, {kw}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3901, "kind": "verified_stmt", "sql": "SELECT 1 LIMIT 1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3902, "kind": "verified_stmt", "sql": "SELECT 1 LIMIT $1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3903, "kind": "verified_stmt", "sql": "SELECT 1 LIMIT ''"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3904, "kind": "verified_stmt", "sql": "SELECT 1 LIMIT NULL"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3905, "kind": "verified_stmt", "sql": "SELECT 1 LIMIT $$$$"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3968, "kind": "verified_stmt", "sql": "SELECT * FROM tbl AS {kw}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4002, "kind": "verified_stmt", "sql": "SELECT * FROM tbl, LIMIT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4007, "kind": "verified_stmt", "sql": "SELECT 1 FROM TABLE(GENERATOR(ROWCOUNT => 10)) AS a, TABLE(GENERATOR(ROWCOUNT => 10)) AS b"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4025, "kind": "verified_stmt", "sql": "SELECT a FROM \"PCH_ODS_FIDELIO\".\"SRC_VW_SYS_ACC_MASTER\" CHANGES(INFORMATION => DEFAULT) AT(TIMESTAMP => TO_TIMESTAMP_TZ('2026-02-18 11:23:19.660000000')) END(TIMESTAMP => TO_TIMESTAMP_TZ('2026-02-18 11:38:30.211000000'))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4030, "kind": "verified_stmt", "sql": "SELECT a FROM t CHANGES(INFORMATION => DEFAULT) AT(TIMESTAMP => TO_TIMESTAMP_TZ('2026-02-18 11:23:19.660000000'))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4035, "kind": "verified_stmt", "sql": "SELECT a FROM t CHANGES(INFORMATION => APPEND_ONLY) AT(TIMESTAMP => TO_TIMESTAMP_TZ('2026-01-01 00:00:00'))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4040, "kind": "verified_stmt", "sql": "SELECT a FROM t CHANGES(INFORMATION => DEFAULT) AT(OFFSET => -60)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4043, "kind": "verified_stmt", "sql": "SELECT a FROM t CHANGES(INFORMATION => DEFAULT) AT(STATEMENT => '8e5d0ca9-005e-44e6-b858-a8f5b37c5726')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4193, "kind": "verified_stmt", "sql": "GRANT ROLE r1 TO ROLE r2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4194, "kind": "verified_stmt", "sql": "GRANT ROLE r1 TO USER u1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4199, "kind": "verified_stmt", "sql": "GRANT DATABASE ROLE r1 TO ROLE r2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4200, "kind": "verified_stmt", "sql": "GRANT DATABASE ROLE db1.sc1.r1 TO ROLE db1.sc1.r2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4224, "kind": "verified_stmt", "sql": "ALTER SESSION SET AUTOCOMMIT=false QUERY_TAG='tag'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4225, "kind": "verified_stmt", "sql": "ALTER SESSION UNSET AUTOCOMMIT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4226, "kind": "verified_stmt", "sql": "ALTER SESSION UNSET AUTOCOMMIT, QUERY_TAG"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4697, "kind": "verified_stmt", "sql": "BEGIN TRANSACTION"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4698, "kind": "verified_stmt", "sql": "BEGIN WORK"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4713, "kind": "verified_stmt", "sql": "BEGIN"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4739, "kind": "verified_stmt", "sql": "CREATE VIEW X (COL WITH MASKING POLICY foo.bar.baz) AS SELECT * FROM Y"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4758, "kind": "verified_stmt", "sql": "CREATE OR REPLACE VIEW bla COPY GRANTS AS (SELECT * FROM source)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4760, "kind": "verified_stmt", "sql": "CREATE OR REPLACE SECURE VIEW bla COPY GRANTS AS (SELECT * FROM source)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4762, "kind": "verified_stmt", "sql": "CREATE OR REPLACE VIEW bla COPY GRANTS (a, b) AS (SELECT a, b FROM source)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4836, "kind": "verified_stmt", "sql": "CREATE DATABASE IDENTIFIER('tbl')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4852, "kind": "verified_stmt", "sql": "CREATE SCHEMA IDENTIFIER('db1.sc1')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4870, "kind": "verified_stmt", "sql": "CREATE TABLE IDENTIFIER('tbl') (id INT)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4904, "kind": "verified_stmt", "sql": "CREATE DATABASE my_db"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4905, "kind": "verified_stmt", "sql": "CREATE OR REPLACE DATABASE my_db"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4906, "kind": "verified_stmt", "sql": "CREATE TRANSIENT DATABASE IF NOT EXISTS my_db"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4907, "kind": "verified_stmt", "sql": "CREATE DATABASE my_db CLONE src_db"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4908, "kind": "verified_stmt", "sql": "CREATE OR REPLACE DATABASE my_db CLONE src_db DATA_RETENTION_TIME_IN_DAYS = 1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4955, "kind": "verified_stmt", "sql": "SELECT CAST('2024-01-01 01:00:00' AS TIMESTAMP_NTZ(1))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4956, "kind": "verified_stmt", "sql": "SELECT CAST('2024-01-01 01:00:00' AS TIMESTAMP_NTZ(9))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4970, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP PRIMARY KEY"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4971, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP FOREIGN KEY k1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4972, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP CONSTRAINT c1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4973, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP PRIMARY KEY CASCADE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4974, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP FOREIGN KEY k1 RESTRICT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4975, "kind": "verified_stmt", "sql": "ALTER TABLE tbl DROP CONSTRAINT c1 CASCADE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4980, "kind": "verified_stmt", "sql": "ALTER DYNAMIC TABLE MY_DYNAMIC_TABLE REFRESH"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4981, "kind": "verified_stmt", "sql": "ALTER DYNAMIC TABLE my_database.my_schema.my_dynamic_table REFRESH"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4982, "kind": "verified_stmt", "sql": "ALTER DYNAMIC TABLE my_dyn_table SUSPEND"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4983, "kind": "verified_stmt", "sql": "ALTER DYNAMIC TABLE my_dyn_table RESUME"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4988, "kind": "verified_stmt", "sql": "ALTER EXTERNAL TABLE some_table REFRESH"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4989, "kind": "verified_stmt", "sql": "ALTER EXTERNAL TABLE some_table REFRESH 'year=2025/month=12/'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4990, "kind": "verified_stmt", "sql": "ALTER EXTERNAL TABLE IF EXISTS some_table REFRESH"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4992, "kind": "verified_stmt", "sql": "ALTER EXTERNAL TABLE IF EXISTS some_table REFRESH 'year=2025/month=12/'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4997, "kind": "verified_stmt", "sql": "TRUNCATE TABLE IF EXISTS my_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4998, "kind": "verified_stmt", "sql": "TRUNCATE TABLE my_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4999, "kind": "verified_stmt", "sql": "TRUNCATE IF EXISTS my_table"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 5005, "kind": "verified_stmt", "sql": "SELECT t.$1, t.$2 FROM @mystage1(file_format => 'myformat', pattern => '.*data.*[.]csv.gz') t"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 5007, "kind": "verified_stmt", "sql": "SELECT t.$1, t.$2 FROM @mystage1 t"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 5009, "kind": "verified_stmt", "sql": "SELECT $1, $2 FROM @mystage1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 5011, "kind": "verified_stmt", "sql": "SELECT $1, $2 FROM @mystage1(file_format => 'myformat')"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3079, "kind": "verified_query", "sql": "SELECT position('an', 'banana', 1)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3080, "kind": "verified_query", "sql": "SELECT n, h, POSITION(n IN h) FROM pos"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 110, "kind": "one_statement_parses_to", "sql": "SELECT CONNECT_BY_ROOT FROM Tbl2"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 309, "kind": "one_statement_parses_to", "sql": "CREATE TABLE my_table (a NUMBER(38, 0)) STORAGE LIFECYCLE POLICY my_policy ON (a, b)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1111, "kind": "one_statement_parses_to", "sql": "CREATE OR REPLACE TEMPORARY VIEW foo.bar.baz (\"COL_1\" COMMENT $$comment 1$$) COMMENT = $$view comment$$ AS (SELECT 1)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1116, "kind": "one_statement_parses_to", "sql": "CREATE TABLE my_table (a STRING COMMENT $$comment 1$$) COMMENT = $$table comment$$"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1199, "kind": "one_statement_parses_to", "sql": "SELECT * FROM ((SELECT 1) AS t)"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1203, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (((SELECT 1) AS t))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1212, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN (b))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1216, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN ((b)))"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1224, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN (b) c )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1229, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN ((b)) c )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1234, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN ( (b) c ) )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1239, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN ( (b) as c ) )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1244, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a as alias1 NATURAL JOIN ( (b) c ) )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1248, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a alias1 NATURAL JOIN ( (b) c ) )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1253, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a as alias1 NATURAL JOIN ( (b) as c ) )"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1258, "kind": "one_statement_parses_to", "sql": "SELECT * FROM (a NATURAL JOIN b) AS c"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1711, "kind": "one_statement_parses_to", "sql": "DROP STAGE s1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1714, "kind": "one_statement_parses_to", "sql": "DROP STAGE IF EXISTS s1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 1917, "kind": "one_statement_parses_to", "sql": "DECLARE profit;"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2762, "kind": "one_statement_parses_to", "sql": "SELECT field/1000 FROM tbl1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2767, "kind": "one_statement_parses_to", "sql": "SELECT tbl1.field/tbl2.field FROM tbl1 JOIN tbl2 ON tbl1.id = tbl2.entity_id"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 2782, "kind": "one_statement_parses_to", "sql": "SELECT TOP 4 c1 FROM testtable"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3213, "kind": "one_statement_parses_to", "sql": "USE SECONDARY ROLE ALL"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3214, "kind": "one_statement_parses_to", "sql": "USE SECONDARY ROLE NONE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3215, "kind": "one_statement_parses_to", "sql": "USE SECONDARY ROLE r1, r2, r3"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3809, "kind": "one_statement_parses_to", "sql": "LS @~"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3810, "kind": "one_statement_parses_to", "sql": "RM @~"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3876, "kind": "one_statement_parses_to", "sql": "SELECT 1 {kw}"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 3899, "kind": "one_statement_parses_to", "sql": "SELECT 1 LIMIT"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4004, "kind": "one_statement_parses_to", "sql": "SELECT * FROM tbl, LIMIT 1"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4220, "kind": "one_statement_parses_to", "sql": "ALTER SESSION SET AUTOCOMMIT=TRUE"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4227, "kind": "one_statement_parses_to", "sql": "ALTER SESSION SET A=false, B='tag';"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4231, "kind": "one_statement_parses_to", "sql": "ALTER SESSION SET A=true \nB='tag'"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4235, "kind": "one_statement_parses_to", "sql": "ALTER SESSION UNSET a\nB"}
+{"dialect": "snowflake", "source_file": "sqlparser_snowflake.rs", "line": 4911, "kind": "one_statement_parses_to", "sql": "\n        CREATE OR REPLACE TRANSIENT DATABASE IF NOT EXISTS my_db\n        CLONE src_db\n        DATA_RETENTION_TIME_IN_DAYS = 1\n        MAX_DATA_EXTENSION_TIME_IN_DAYS = 5\n        EXTERNAL_VOLUME = 'volume1'\n        CATALOG = 'my_catalog'\n        REPLACE_INVALID_CHARACTERS = TRUE\n        DEFAULT_DDL_COLLATION = 'en-ci'\n        STORAGE_SERIALIZATION_POLICY = COMPATIBLE\n        COMMENT = 'This is my database'\n        CATALOG_SYNC = 'sync_integration'\n        CATALOG_SYNC_NAMESPACE_MODE = NEST\n        CATALOG_SYNC_NAMESPACE_FLATTEN_DELIMITER = '/'\n        WITH TAG (env = 'prod', team = 'data')\n        WITH CONTACT (owner = 'admin', dpo = 'compliance')\n    "}

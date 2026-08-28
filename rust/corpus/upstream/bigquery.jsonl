@@ -1,0 +1,38 @@
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 52, "kind": "verified_only_select", "sql": "CREATE TABLE table (x STRUCT<STRUCT<INT64>>>)"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 1773, "kind": "verified_only_select", "sql": "SELECT * FROM t1 JOIN UNNEST(t1.a) AS f ON c1 = c2"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2416, "kind": "verified_only_select", "sql": "SELECT TRIM('xyz', 'a')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2456, "kind": "verified_only_select", "sql": "SELECT STRUCT<STRING>((SELECT foo FROM T WHERE true)).* FROM T"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2457, "kind": "verified_only_select", "sql": "SELECT [STRUCT<STRING>('foo')][0].* EXCEPT (foo) FROM T"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2458, "kind": "verified_only_select", "sql": "SELECT myfunc()[0].* FROM T"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2480, "kind": "verified_only_select", "sql": "SELECT AS STRUCT 1 AS a, 2 AS b"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2503, "kind": "verified_only_select", "sql": "SELECT AS VALUE STRUCT(1 AS a, 2 AS b) AS xyz"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 131, "kind": "verified_stmt", "sql": "CREATE TABLE table (x STRUCT<STRUCT<INT64>>>)"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 261, "kind": "verified_stmt", "sql": "SELECT @@error.stack_trace, @@error.message"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 283, "kind": "verified_stmt", "sql": "BEGIN SELECT 1; SELECT 2; EXCEPTION WHEN ERROR THEN SELECT 2; SELECT 4; END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 287, "kind": "verified_stmt", "sql": "BEGIN SELECT 1; EXCEPTION WHEN ERROR THEN SELECT @@error.stack_trace; END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 288, "kind": "verified_stmt", "sql": "BEGIN EXCEPTION WHEN ERROR THEN SELECT 2; END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 289, "kind": "verified_stmt", "sql": "BEGIN SELECT 1; SELECT 2; EXCEPTION WHEN ERROR THEN END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 290, "kind": "verified_stmt", "sql": "BEGIN EXCEPTION WHEN ERROR THEN END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 291, "kind": "verified_stmt", "sql": "BEGIN SELECT 1; SELECT 2; END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 292, "kind": "verified_stmt", "sql": "BEGIN END"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 596, "kind": "verified_stmt", "sql": "CREATE EXTERNAL TABLE dataset_id.table1 (hvr_tx_seq STRING) OPTIONS(format = 'CSV')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 599, "kind": "verified_stmt", "sql": "CREATE EXTERNAL TABLE dataset_id.table1 (hvr_tx_seq STRING) OPTIONS(format = 'CSV', allow_quoted_newlines = true, encoding = 'UTF8')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2413, "kind": "verified_stmt", "sql": "SELECT customer_id, TRIM(item_price_id, '\"', \"a\") AS item_price_id FROM models_staging.subscriptions"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2559, "kind": "verified_stmt", "sql": "CREATE TABLE foo (x ANY)"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2884, "kind": "verified_stmt", "sql": "BEGIN TRANSACTION"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2889, "kind": "verified_stmt", "sql": "BEGIN"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2894, "kind": "verified_stmt", "sql": "ALTER SCHEMA mydataset SET DEFAULT COLLATE 'und:ci'"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2895, "kind": "verified_stmt", "sql": "ALTER SCHEMA mydataset ADD REPLICA 'us'"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2897, "kind": "verified_stmt", "sql": "ALTER SCHEMA mydataset ADD REPLICA 'us' OPTIONS (location = 'us')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2898, "kind": "verified_stmt", "sql": "ALTER SCHEMA mydataset DROP REPLICA 'us'"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2899, "kind": "verified_stmt", "sql": "ALTER SCHEMA mydataset SET OPTIONS (location = 'us')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2901, "kind": "verified_stmt", "sql": "ALTER SCHEMA IF EXISTS mydataset SET OPTIONS (location = 'us')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2907, "kind": "verified_stmt", "sql": "CREATE SNAPSHOT TABLE dataset_id.table1 CLONE dataset_id.table2"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2909, "kind": "verified_stmt", "sql": "CREATE SNAPSHOT TABLE IF NOT EXISTS dataset_id.table1 CLONE dataset_id.table2"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2913, "kind": "verified_stmt", "sql": "CREATE SNAPSHOT TABLE dataset_id.table1 CLONE dataset_id.table2 FOR SYSTEM_TIME AS OF TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR)"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2917, "kind": "verified_stmt", "sql": "CREATE SNAPSHOT TABLE dataset_id.table1 CLONE dataset_id.table2 OPTIONS(expiration_timestamp = TIMESTAMP '2025-01-01 00:00:00 UTC', friendly_name = 'my_table')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 2921, "kind": "verified_stmt", "sql": "CREATE SNAPSHOT TABLE IF NOT EXISTS dataset_id.table1 CLONE dataset_id.table2 FOR SYSTEM_TIME AS OF TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR) OPTIONS(expiration_timestamp = TIMESTAMP '2025-01-01 00:00:00 UTC')"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 180, "kind": "one_statement_parses_to", "sql": "SELECT b'123', b\"123\", b'''123''', b\"\"\"123\"\"\""}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 244, "kind": "one_statement_parses_to", "sql": "SELECT r'123', r\"123\", r'''123''', r\"\"\"123\"\"\""}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 607, "kind": "one_statement_parses_to", "sql": "CREATE TABLE table (x STRUCT<STRUCT<INT64>>>)"}
+{"dialect": "bigquery", "source_file": "sqlparser_bigquery.rs", "line": 1701, "kind": "one_statement_parses_to", "sql": "select * from foo-bar f join baz-qux b on f.id = b.id"}

@@ -1,0 +1,18 @@
+[package]
+name = "sql_parser"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+sql_core = { path = "../sql_core" }
+sql_macro = { path = "../sql_macro" }
+sql_expr = { path = "../sql_expr" }
+chumsky = { version = "1.0.0-alpha.8", features = ["pratt"] }
+ariadne = "0.6"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "sql_pipeline"
+harness = false

@@ -1,0 +1,5 @@
+--- BUILD.bazel
++++ BUILD.bazel
+@@ -2,1 +2,1 @@
+-load("@rules_cc//cc:defs.bzl", "cc_library")
++load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
